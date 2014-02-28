@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Created-By: 1.0 (Android)
+
+Name: res/layout/main.xml
+SHA1-Digest: KwwMIDka8yWSMcP+k65ACfdv6aM=
+
+Name: AndroidManifest.xml
+SHA1-Digest: wXHkoLppa4GCYYOAObAMd+I6yFk=
+
+Name: resources.arsc
+SHA1-Digest: lTDG5rK2Uoc/2+35+nJdgmUpINE=
+
+Name: classes.dex
+SHA1-Digest: Sm302sRtpcZhoyRTqn9GYPq4gXk=
+
