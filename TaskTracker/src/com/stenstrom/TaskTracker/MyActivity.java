@@ -2,51 +2,97 @@ package com.stenstrom.TaskTracker;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MyActivity extends Activity {
     /**
      * Called when the activity is first created.
      */
+
+    TextView resultView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        resultView = (TextView) findViewById(R.id.Text);
 
-        // Create a new HttpClient and Post Header
-        HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://ludste.synology.me");
+        //parse json data
+        try {
+            String s = "";
+            JSONArray jArray = getDataFromDatabase();
+
+            for (int i = 0; i < jArray.length(); i++) {
+                JSONObject json = jArray.getJSONObject(i);
+                s = s +
+                        "id : " + json.getInt("id") + "\n" +
+                        "Name : " + json.getString("name") + "\n" +
+                        "Start : " + json.getString("startDate") + "\n" +
+                        "End : " + json.getString("endDate") + "\n" +
+                        "Completion time : " + json.getString("completionTime") + "\n" +
+                        "Num of Pomodoros : " + json.getString("numOfPomodoros") + "\n" +
+                        "Collaborative : " + json.getBoolean("collaborative") + "\n\n";
+            }
+
+            resultView.setText(s);
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            Log.e("log_tag", "Error Parsing Data " + e.toString());
+        }
+
+
+    }
+
+    public JSONArray getDataFromDatabase() {
+        InputStream inputStream = null;
+        ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        nameValuePairs.add(new BasicNameValuePair("taskName", "MatteB"));
 
         try {
-            // Add your data
-            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-            nameValuePairs.add(new BasicNameValuePair("id", "12345"));
-            nameValuePairs.add(new BasicNameValuePair("stringdata", "AndDev is Cool!"));
-            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-
-            // Execute HTTP Post Request
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httppost = new HttpPost("http://ludste.synology.me/TaskTracker/index.php"); //Behöver speca index.php, hittar inte annars
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));//Lägg till postvariabler
             HttpResponse response = httpclient.execute(httppost);
-            TextView tv = (TextView) findViewById(R.id.Text);
-            tv.append("Hej");
-            tv.append("\n" + response.toString());
-            tv.append("Done");
-        } catch (ClientProtocolException e) {
-            // TODO Auto-generated catch block
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
+            HttpEntity entity = response.getEntity();
+            inputStream = entity.getContent();
+            Log.d("HTTP", "HTTP: OK");
+        } catch (Exception e) {
+            Log.e("HTTP", "Error in http connection " + e.toString());
         }
+        //convert response to string
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line).append("\n");
+            }
+            assert inputStream != null;
+            inputStream.close();
+
+            return new JSONArray(stringBuilder.toString());
+        } catch (Exception e) {
+            Log.e("log_tag", "Error  converting result " + e.toString());
+        }
+        return null;
     }
+
 }
