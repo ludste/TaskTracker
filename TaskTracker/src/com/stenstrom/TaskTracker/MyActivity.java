@@ -2,6 +2,7 @@ package com.stenstrom.TaskTracker;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.widget.TextView;
 import org.apache.http.HttpEntity;
@@ -24,16 +25,15 @@ public class MyActivity extends Activity {
     /**
      * Called when the activity is first created.
      */
-
     TextView resultView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
+        StrictMode.enableDefaults(); //STRICT MODE ENABLED
         resultView = (TextView) findViewById(R.id.Text);
-
+        resultView.append("TEST \n");
         //parse json data
         try {
             String s = "";
@@ -48,7 +48,7 @@ public class MyActivity extends Activity {
                         "End : " + json.getString("endDate") + "\n" +
                         "Completion time : " + json.getString("completionTime") + "\n" +
                         "Num of Pomodoros : " + json.getString("numOfPomodoros") + "\n" +
-                        "Collaborative : " + json.getBoolean("collaborative") + "\n\n";
+                        "Collaborative : " + json.getInt("collaborative") + "\n\n";
             }
 
             resultView.setText(s);
@@ -56,10 +56,11 @@ public class MyActivity extends Activity {
         } catch (Exception e) {
             // TODO: handle exception
             Log.e("log_tag", "Error Parsing Data " + e.toString());
+            resultView.append("Error Parsing Data " + e.toString() + "\n");
         }
 
-
     }
+
 
     public JSONArray getDataFromDatabase() {
         InputStream inputStream = null;
@@ -73,9 +74,12 @@ public class MyActivity extends Activity {
             HttpResponse response = httpclient.execute(httppost);
             HttpEntity entity = response.getEntity();
             inputStream = entity.getContent();
+            resultView.append("HTTP: OK" + "\n");
             Log.d("HTTP", "HTTP: OK");
         } catch (Exception e) {
             Log.e("HTTP", "Error in http connection " + e.toString());
+            resultView.append("Error in http connection " + e.toString() + "\n");
+
         }
         //convert response to string
         try {
@@ -91,8 +95,10 @@ public class MyActivity extends Activity {
             return new JSONArray(stringBuilder.toString());
         } catch (Exception e) {
             Log.e("log_tag", "Error  converting result " + e.toString());
+            resultView.append("Error  converting result " + e.toString() + "\n");
         }
         return null;
     }
+
 
 }
