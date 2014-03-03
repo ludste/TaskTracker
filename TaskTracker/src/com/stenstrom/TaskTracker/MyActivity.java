@@ -32,7 +32,10 @@ public class MyActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         StrictMode.enableDefaults(); //STRICT MODE ENABLED
-        resultView = (TextView) findViewById(R.id.Text);
+
+
+
+        resultView = (TextView) findViewById(R.id.ResultText);
         resultView.append("TEST \n");
         //parse json data
         try {
@@ -65,11 +68,13 @@ public class MyActivity extends Activity {
     public JSONArray getDataFromDatabase() {
         InputStream inputStream = null;
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-        nameValuePairs.add(new BasicNameValuePair("taskName", "MatteB"));
+        nameValuePairs.add(new BasicNameValuePair("taskName", "MatteC"));
 
         try {
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost("http://ludste.synology.me/TaskTracker/index.php"); //Behöver speca index.php, hittar inte annars
+
+
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));//Lägg till postvariabler
             HttpResponse response = httpclient.execute(httppost);
             HttpEntity entity = response.getEntity();
