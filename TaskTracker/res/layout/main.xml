@@ -4,12 +4,6 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
         >
-    <ListView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-            android:id="@+id/List"
-
-    </ListView>
     <TextView
             android:id="@+id/ResultText"
             android:layout_width="fill_parent"
