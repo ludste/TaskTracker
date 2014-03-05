@@ -15,11 +15,14 @@ public class Constants {
 	
 	
 	public static final String USER_ID = "userID";
+	public static final String USER_ID_DB = "user_id";
 	public static final String TASK_NAME = "name";
-	public static final String START_TIME = "startDate";
-	public static final String END_TIME = "endDate";
-	public final String COMPLETED_WHOLE_TASK = "completionTime";
-	public static final String FINNISH_TIME_LAST_POMODORO = "finnishTime";
-	public static final String NUM_OF_POMODOROS = "numOfPomodoros";
+	public static final String START_TIME = "start_date";
+	public static final String END_TIME = "end_date";
+	public static final String COMPLETED_WHOLE_TASK = "done_date";
+	public static final String NUM_OF_POMODOROS = "pomodoros";
 	public static final String IS_COLLABORATIVE = "collaborative";
+	public static final String TASK_ID_DB = "task_id";
+	public static final String IS_COMPLETED = "completed";
+	public static final String NUM_COMPLETED_POMODOROS = "comp_pomodoros";
 }

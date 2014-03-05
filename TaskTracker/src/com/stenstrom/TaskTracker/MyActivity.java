@@ -30,20 +30,18 @@ public class MyActivity extends Activity {
 	 * Called when the activity is first created.
 	 */
 	TextView resultView;
-	ArrayList<HashMap<String, String>> allTasks = new ArrayList<HashMap<String, String>>();
+	ArrayList<Task> allTasks = new ArrayList<Task>();
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-//		StrictMode.enableDefaults(); // STRICT MODE ENABLED
 
-		resultView = (TextView) findViewById(R.id.ResultText);
-		resultView.append("TEST \n");
-		int userID = 2;
+		resultView = (TextView) findViewById(R.id.Tasks);
+		int userID = 1;
 		
 		new GetTasks().execute(userID);
-		
+		//Now alltasks is populated
 
 	}
 
@@ -59,44 +57,57 @@ public class MyActivity extends Activity {
 			nameValuePairs.add(new BasicNameValuePair(Constants.METHOD, Constants.getTasks));
 			nameValuePairs.add(new BasicNameValuePair(Constants.USER_ID, Integer.toString(userID)));
 			String jsonStr = serviceHandler.makeServiceCall(url, ServiceHandler.GET, nameValuePairs);
+			try {
+				JSONObject allResultJson = new JSONObject(jsonStr);
+				String statusCode = allResultJson.getString("status");
+				if (statusCode.equals(Constants.getTasks)) {
+					JSONArray jArray = allResultJson.getJSONArray("data");					
+					for (int i = 0; i < jArray.length(); i++) {
+						Task task;
+						JSONObject json = jArray.getJSONObject(i);
+						task = new Task(json.getString(Constants.TASK_ID_DB),
+								json.getString(Constants.TASK_NAME),
+								json.getString(Constants.START_TIME),
+								json.getString(Constants.END_TIME),
+								json.getString(Constants.COMPLETED_WHOLE_TASK),
+								json.getString(Constants.NUM_OF_POMODOROS),
+								json.getString(Constants.IS_COLLABORATIVE));
+						
+						allTasks.add(task);
+					}
+				}
+				System.err.println("All tasks added");
+			} catch (Exception e) {
+				// TODO: handle exception
+				Log.e("log_tag", "Error Parsing Data " + e.toString());
+				resultView.append("Error Parsing Data " + e.toString() + "\n");
+			}
 			return jsonStr;
 		}
 		
 		protected void onPostExecute(String jsonStr){
 			String statusCode;
-			
 			try {
 				JSONObject allResultJson = new JSONObject(jsonStr);
 				String s = "";
 				statusCode = allResultJson.getString("status");
-//				System.out.println("Status: "+stat);
 				if (statusCode.equals(Constants.getTasks)) {
 					JSONArray jArray = allResultJson.getJSONArray("data");					
 					for (int i = 0; i < jArray.length(); i++) {
-						HashMap<String, String> task = new HashMap<String, String>();
-						JSONObject json = jArray.getJSONObject(i);
-						//Nåt sånt här borde vi vilja göra, eller liknande för att lägga upp i objekt, har bara
-						//lagt in de nu men använder mig inte av dem.
-						task.put(Constants.TASK_NAME, json.getString(Constants.TASK_NAME));
-						task.put(Constants.START_TIME, json.getString(Constants.START_TIME));
-						task.put(Constants.END_TIME, json.getString(Constants.END_TIME));
-						task.put(Constants.NUM_OF_POMODOROS, json.getString(Constants.NUM_OF_POMODOROS));
-						task.put(Constants.IS_COLLABORATIVE, json.getString(Constants.IS_COLLABORATIVE));
-						allTasks.add(task);
-						
+						JSONObject json = jArray.getJSONObject(i);						
 						s = s + "id : " + json.getInt("id") + "\n" + "Name : "
 								+ json.getString("name") + "\n" + "Start : "
-								+ json.getString("startDate") + "\n" + "End : "
-								+ json.getString("endDate") + "\n"
+								+ json.getString("start_date") + "\n" + "End : "
+								+ json.getString("end_date") + "\n"
 								+ "Completion time : "
-								+ json.getString("completionTime") + "\n"
+								+ json.getString(Constants.COMPLETED_WHOLE_TASK) + "\n"
 								+ "Num of Pomodoros : "
-								+ json.getString("numOfPomodoros") + "\n"
+								+ json.getString(Constants.NUM_OF_POMODOROS) + "\n"
 								+ "Collaborative : " + json.getInt("collaborative")
 								+ "\n\n";
 					}
 
-					resultView.setText(s);
+					resultView.append("\n"+s);
 				} else {
 					resultView.setText("Could not get info from db, error: "
 							+ statusCode);
@@ -107,8 +118,6 @@ public class MyActivity extends Activity {
 				resultView.append("Error Parsing Data " + e.toString() + "\n");
 			}
 		}
-
-
 	}
 	//Behöver inte denna funk längre, men finns kvar för ev referensbehov
 //	public JSONObject getDataFromDatabase(int userID) {
