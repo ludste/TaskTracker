@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/name_edit"
+        android:layout_width="188dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/task_name" />
+    <EditText
+        android:id="@+id/pomodoro_edit"
+        android:layout_width="188dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="@string/task_pomodoros" />
+    <Button
+        android:id="@+id/button_change_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#afafaf"
+        android:text="@string/change_date" />
+    <Button
+        android:id="@+id/button_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="sendToBackend"
+        android:text="@string/button_text" />
+
+</LinearLayout>

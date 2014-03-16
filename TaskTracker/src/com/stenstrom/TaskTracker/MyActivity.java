@@ -1,6 +1,7 @@
 package com.stenstrom.TaskTracker;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -35,12 +36,14 @@ public class MyActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		setContentView(R.layout.sign_up);
 
 		resultView = (TextView) findViewById(R.id.Tasks);
-		int userID = 1;
+		Intent intent = new Intent(getApplicationContext(), ListTasks.class);
+		startActivity(intent);
+//		int userID = 1;
 		
-		new GetTasks().execute(userID);
+//		new GetTasks().execute(userID);
 		//Now alltasks is populated
 
 	}

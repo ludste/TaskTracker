@@ -2,4 +2,13 @@
 <resources>
     <string name="app_name">TaskTracker</string>
     <string name="tasks">My Tasks</string>
+    <string name="task_name">Task</string>
+    <string name="task_end">Due</string>
+    <string name="task_pomodoros">Pomodoros</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="new_task">New Task</string>
+    <string name="button_text">Send</string>
+    <string name="change_date">Set due date</string>
+    
+    
 </resources>
