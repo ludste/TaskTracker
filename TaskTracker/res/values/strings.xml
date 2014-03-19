@@ -9,6 +9,9 @@
     <string name="new_task">New Task</string>
     <string name="button_text">Send</string>
     <string name="change_date">Set due date</string>
+    <string name="completed">Completed</string>
+    <string name="not_completed">Not completed</string>
+    <string name="set_pomodoro">Register completed pomodoro</string>
     
     
 </resources>

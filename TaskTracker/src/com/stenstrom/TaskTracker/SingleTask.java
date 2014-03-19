@@ -1,8 +1,15 @@
 package com.stenstrom.TaskTracker;
 
+import java.util.ArrayList;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 public class SingleTask extends Activity {
@@ -37,4 +44,17 @@ public class SingleTask extends Activity {
 			e.printStackTrace();
 		}
 	}
+	//TODO gör klart nedan
+	public void registerPomodoro(View view){
+//		new setPomodoro().execute();
+	}
+//	private class setPomodoro extends AsyncTask<Void, Void, Void> {
+//		String url = "http://ludste.synology.me/TaskTracker/index.php";
+//		@Override
+//		protected Void doInBackground(Void... params) {
+//
+//			ServiceHandler serviceHandler = new ServiceHandler();
+//			ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+//			nameValuePairs.add(new BasicNameValuePair(Constants.METHOD, Constants.UPDATE_POMODORO));
+//		}
 }

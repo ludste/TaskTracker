@@ -11,19 +11,21 @@ public final class R {
     public static final class attr {
     }
     public static final class id {
-        public static final int Tasks=0x7f040003;
-        public static final int button_change_date=0x7f040007;
+        public static final int Tasks=0x7f040005;
+        public static final int button_change_date=0x7f040008;
         public static final int button_new_task=0x7f040004;
-        public static final int button_send=0x7f040008;
+        public static final int button_send=0x7f040009;
+        public static final int button_set_pomodoro=0x7f04000e;
         public static final int end=0x7f040001;
-        public static final int end_s=0x7f04000b;
-        public static final int name_edit=0x7f040005;
-        public static final int pomodoro_edit=0x7f040006;
+        public static final int end_s=0x7f04000c;
+        public static final int is_completed=0x7f040003;
+        public static final int name_edit=0x7f040006;
+        public static final int pomodoro_edit=0x7f040007;
         public static final int pomodoros=0x7f040002;
-        public static final int pomodoros_s=0x7f04000c;
-        public static final int sign_up=0x7f040009;
+        public static final int pomodoros_s=0x7f04000d;
+        public static final int sign_up=0x7f04000a;
         public static final int task_name=0x7f040000;
-        public static final int task_name_s=0x7f04000a;
+        public static final int task_name_s=0x7f04000b;
     }
     public static final class layout {
         public static final int list_item=0x7f020000;
@@ -36,7 +38,10 @@ public final class R {
         public static final int app_name=0x7f030000;
         public static final int button_text=0x7f030007;
         public static final int change_date=0x7f030008;
+        public static final int completed=0x7f030009;
         public static final int new_task=0x7f030006;
+        public static final int not_completed=0x7f03000a;
+        public static final int set_pomodoro=0x7f03000b;
         public static final int sign_up=0x7f030005;
         public static final int task_end=0x7f030003;
         public static final int task_name=0x7f030002;

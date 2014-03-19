@@ -33,5 +33,11 @@
         android:textColor="#5d5d5d"
         android:textStyle="bold" 
         android:text="@string/task_pomodoros"/>
+    <Button
+        android:id="@+id/button_set_pomodoro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="registerPomodoro"
+        android:text="@string/set_pomodoro" />
 
 </LinearLayout>

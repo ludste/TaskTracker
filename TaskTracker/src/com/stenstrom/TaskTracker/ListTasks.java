@@ -95,6 +95,10 @@ private class GetTasks extends AsyncTask<Integer, Void, String>{
 					task.put(Constants.TASK_NAME, json.getString(Constants.TASK_NAME));
 					task.put(Constants.END_TIME, json.getString(Constants.END_TIME));
 					task.put(Constants.NUM_OF_POMODOROS, json.getString(Constants.NUM_OF_POMODOROS));
+					Boolean isCompleted = json.getString(Constants.NUM_COMPLETED_POMODOROS).equals(
+							json.getString(Constants.NUM_OF_POMODOROS));
+					String completedText = (isCompleted?"completed": "not completed");
+					task.put(Constants.IS_COMPLETED, completedText);
 					
 					allTasks.add(task);
 				}
@@ -114,14 +118,13 @@ private class GetTasks extends AsyncTask<Integer, Void, String>{
 			JSONObject allResultJson = new JSONObject(jsonStr);
 			statusCode = allResultJson.getString("status");
 			if (statusCode.equals(Constants.getTasks)) {
-//			statusCodeView.append("Status code: " + statusCode);
-			//TODO show "could not reach task database" if statuscode !=OK
+			//TODO show "could not reach task database" if not ok
 			ListAdapter adapter = new SimpleAdapter(ListTasks.this, allTasks, 
 					R.layout.list_item, 
 					new String[]{
-					Constants.TASK_NAME, Constants.END_TIME, Constants.NUM_OF_POMODOROS
+					Constants.TASK_NAME, Constants.END_TIME, Constants.NUM_OF_POMODOROS, Constants.IS_COMPLETED
 			}, new int[]{
-				R.id.task_name, R.id.end, R.id.pomodoros	
+				R.id.task_name, R.id.end, R.id.pomodoros, R.id.is_completed	
 			});
 			setListAdapter(adapter);
 			}

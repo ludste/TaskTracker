@@ -30,15 +30,15 @@ public class MyActivity extends Activity {
 	/**
 	 * Called when the activity is first created.
 	 */
-	TextView resultView;
-	ArrayList<Task> allTasks = new ArrayList<Task>();
+//	TextView resultView;
+//	ArrayList<Task> allTasks = new ArrayList<Task>();
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.sign_up);
 
-		resultView = (TextView) findViewById(R.id.Tasks);
+//		resultView = (TextView) findViewById(R.id.Tasks);
 		Intent intent = new Intent(getApplicationContext(), ListTasks.class);
 		startActivity(intent);
 //		int userID = 1;
@@ -48,80 +48,81 @@ public class MyActivity extends Activity {
 
 	}
 
-
-	private class GetTasks extends AsyncTask<Integer, Void, String>{
-		String url = "http://ludste.synology.me/TaskTracker/index.php";
-		
-		@Override
-		protected String doInBackground(Integer... arg0) {
-			int userID = arg0[0];
-			ServiceHandler serviceHandler = new ServiceHandler();
-			ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-			nameValuePairs.add(new BasicNameValuePair(Constants.METHOD, Constants.getTasks));
-			nameValuePairs.add(new BasicNameValuePair(Constants.USER_ID, Integer.toString(userID)));
-			String jsonStr = serviceHandler.makeServiceCall(url, ServiceHandler.GET, nameValuePairs);
-			try {
-				JSONObject allResultJson = new JSONObject(jsonStr);
-				String statusCode = allResultJson.getString("status");
-				if (statusCode.equals(Constants.getTasks)) {
-					JSONArray jArray = allResultJson.getJSONArray("data");					
-					for (int i = 0; i < jArray.length(); i++) {
-						Task task;
-						JSONObject json = jArray.getJSONObject(i);
-						task = new Task(json.getString(Constants.TASK_ID_DB),
-								json.getString(Constants.TASK_NAME),
-								json.getString(Constants.START_TIME),
-								json.getString(Constants.END_TIME),
-								json.getString(Constants.COMPLETED_WHOLE_TASK),
-								json.getString(Constants.NUM_OF_POMODOROS),
-								json.getString(Constants.IS_COLLABORATIVE));
-						
-						allTasks.add(task);
-					}
-				}
-				System.err.println("All tasks added");
-			} catch (Exception e) {
-				// TODO: handle exception
-				Log.e("log_tag", "Error Parsing Data " + e.toString());
-				resultView.append("Error Parsing Data " + e.toString() + "\n");
-			}
-			return jsonStr;
-		}
-		
-		protected void onPostExecute(String jsonStr){
-			String statusCode;
-			try {
-				JSONObject allResultJson = new JSONObject(jsonStr);
-				String s = "";
-				statusCode = allResultJson.getString("status");
-				if (statusCode.equals(Constants.getTasks)) {
-					JSONArray jArray = allResultJson.getJSONArray("data");					
-					for (int i = 0; i < jArray.length(); i++) {
-						JSONObject json = jArray.getJSONObject(i);						
-						s = s + "id : " + json.getInt("id") + "\n" + "Name : "
-								+ json.getString("name") + "\n" + "Start : "
-								+ json.getString("start_date") + "\n" + "End : "
-								+ json.getString("end_date") + "\n"
-								+ "Completion time : "
-								+ json.getString(Constants.COMPLETED_WHOLE_TASK) + "\n"
-								+ "Num of Pomodoros : "
-								+ json.getString(Constants.NUM_OF_POMODOROS) + "\n"
-								+ "Collaborative : " + json.getInt("collaborative")
-								+ "\n\n";
-					}
-
-					resultView.append("\n"+s);
-				} else {
-					resultView.setText("Could not get info from db, error: "
-							+ statusCode);
-				}
-			} catch (Exception e) {
-				// TODO: handle exception
-				Log.e("log_tag", "Error Parsing Data " + e.toString());
-				resultView.append("Error Parsing Data " + e.toString() + "\n");
-			}
-		}
-	}
+//Gammal kod, endast kvar som referens
+	
+//	private class GetTasks extends AsyncTask<Integer, Void, String>{
+//		String url = "http://ludste.synology.me/TaskTracker/index.php";
+//		
+//		@Override
+//		protected String doInBackground(Integer... arg0) {
+//			int userID = arg0[0];
+//			ServiceHandler serviceHandler = new ServiceHandler();
+//			ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+//			nameValuePairs.add(new BasicNameValuePair(Constants.METHOD, Constants.getTasks));
+//			nameValuePairs.add(new BasicNameValuePair(Constants.USER_ID, Integer.toString(userID)));
+//			String jsonStr = serviceHandler.makeServiceCall(url, ServiceHandler.GET, nameValuePairs);
+//			try {
+//				JSONObject allResultJson = new JSONObject(jsonStr);
+//				String statusCode = allResultJson.getString("status");
+//				if (statusCode.equals(Constants.getTasks)) {
+//					JSONArray jArray = allResultJson.getJSONArray("data");					
+//					for (int i = 0; i < jArray.length(); i++) {
+//						Task task;
+//						JSONObject json = jArray.getJSONObject(i);
+//						task = new Task(json.getString(Constants.TASK_ID_DB),
+//								json.getString(Constants.TASK_NAME),
+//								json.getString(Constants.START_TIME),
+//								json.getString(Constants.END_TIME),
+//								json.getString(Constants.COMPLETED_WHOLE_TASK),
+//								json.getString(Constants.NUM_OF_POMODOROS),
+//								json.getString(Constants.IS_COLLABORATIVE));
+//						
+//						allTasks.add(task);
+//					}
+//				}
+//				System.err.println("All tasks added");
+//			} catch (Exception e) {
+//				// TODO: handle exception
+//				Log.e("log_tag", "Error Parsing Data " + e.toString());
+//				resultView.append("Error Parsing Data " + e.toString() + "\n");
+//			}
+//			return jsonStr;
+//		}
+//		
+//		protected void onPostExecute(String jsonStr){
+//			String statusCode;
+//			try {
+//				JSONObject allResultJson = new JSONObject(jsonStr);
+//				String s = "";
+//				statusCode = allResultJson.getString("status");
+//				if (statusCode.equals(Constants.getTasks)) {
+//					JSONArray jArray = allResultJson.getJSONArray("data");					
+//					for (int i = 0; i < jArray.length(); i++) {
+//						JSONObject json = jArray.getJSONObject(i);						
+//						s = s + "id : " + json.getInt("id") + "\n" + "Name : "
+//								+ json.getString("name") + "\n" + "Start : "
+//								+ json.getString("start_date") + "\n" + "End : "
+//								+ json.getString("end_date") + "\n"
+//								+ "Completion time : "
+//								+ json.getString(Constants.COMPLETED_WHOLE_TASK) + "\n"
+//								+ "Num of Pomodoros : "
+//								+ json.getString(Constants.NUM_OF_POMODOROS) + "\n"
+//								+ "Collaborative : " + json.getInt("collaborative")
+//								+ "\n\n";
+//					}
+//
+//					resultView.append("\n"+s);
+//				} else {
+//					resultView.setText("Could not get info from db, error: "
+//							+ statusCode);
+//				}
+//			} catch (Exception e) {
+//				// TODO: handle exception
+//				Log.e("log_tag", "Error Parsing Data " + e.toString());
+//				resultView.append("Error Parsing Data " + e.toString() + "\n");
+//			}
+//		}
+//	}
 	//Behöver inte denna funk längre, men finns kvar för ev referensbehov
 //	public JSONObject getDataFromDatabase(int userID) {
 //		InputStream inputStream = null;
