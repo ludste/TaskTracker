@@ -39,5 +39,12 @@
         android:layout_height="wrap_content"
         android:onClick="registerPomodoro"
         android:text="@string/set_pomodoro" />
+    
+    <Button
+        android:id="@+id/button_set_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="setDone"
+        android:text="@string/set_done" />
 
 </LinearLayout>

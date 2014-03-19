@@ -44,9 +44,12 @@ public class SingleTask extends Activity {
 			e.printStackTrace();
 		}
 	}
-	//TODO gör klart nedan
+	//TODO Complete this. it is called on button click
 	public void registerPomodoro(View view){
 //		new setPomodoro().execute();
+	}
+	public void setDone(View view){
+		//Should call same method as above but with extra boolean set or something
 	}
 //	private class setPomodoro extends AsyncTask<Void, Void, Void> {
 //		String url = "http://ludste.synology.me/TaskTracker/index.php";

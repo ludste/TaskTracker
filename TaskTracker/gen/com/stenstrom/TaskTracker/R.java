@@ -15,6 +15,7 @@ public final class R {
         public static final int button_change_date=0x7f040008;
         public static final int button_new_task=0x7f040004;
         public static final int button_send=0x7f040009;
+        public static final int button_set_done=0x7f04000f;
         public static final int button_set_pomodoro=0x7f04000e;
         public static final int end=0x7f040001;
         public static final int end_s=0x7f04000c;
@@ -41,6 +42,7 @@ public final class R {
         public static final int completed=0x7f030009;
         public static final int new_task=0x7f030006;
         public static final int not_completed=0x7f03000a;
+        public static final int set_done=0x7f03000c;
         public static final int set_pomodoro=0x7f03000b;
         public static final int sign_up=0x7f030005;
         public static final int task_end=0x7f030003;

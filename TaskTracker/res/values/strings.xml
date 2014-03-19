@@ -12,6 +12,7 @@
     <string name="completed">Completed</string>
     <string name="not_completed">Not completed</string>
     <string name="set_pomodoro">Register completed pomodoro</string>
+    <string name="set_done">Set this task as done</string>
     
     
 </resources>
