@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:id="@+id/single_task" >
+    
     
     <TextView
         android:id="@+id/task_name_s"
@@ -33,6 +35,19 @@
         android:textColor="#5d5d5d"
         android:textStyle="bold" 
         android:text="@string/task_pomodoros"/>
+     <TextView
+        android:id="@+id/pomodoros_comp_tot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:textColor="#5d5d5d"
+        android:textStyle="bold" />
+
+	<ImageView
+	    android:id="@+id/collab_image"
+	    android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/shared"/>
     <Button
         android:id="@+id/button_set_pomodoro"
         android:layout_width="wrap_content"

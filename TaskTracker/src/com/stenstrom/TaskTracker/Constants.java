@@ -8,6 +8,7 @@ public class Constants {
 	public static String getAllTasks = "getAllTasks";
 	public static String checkUserUniqueness = "testUserUniqueness";
 	public static String checkMailUniqueness = "testMailUniqueness";
+	public static String updatePomodoro = "updatePomodoro";
 	
 	public static final String METHOD = "method";
 	public static final String STATUS = "status";
@@ -19,10 +20,13 @@ public class Constants {
 	public static final String TASK_NAME = "name";
 	public static final String START_TIME = "start_date";
 	public static final String END_TIME = "end_date";
-	public static final String COMPLETED_WHOLE_TASK = "done_date";
+	public static final String COMPLETED_WHOLE_TASK_DATE = "done_date";
 	public static final String NUM_OF_POMODOROS = "pomodoros";
 	public static final String IS_COLLABORATIVE = "collaborative";
 	public static final String TASK_ID_DB = "task_id";
 	public static final String IS_COMPLETED = "completed";
 	public static final String NUM_COMPLETED_POMODOROS = "comp_pomodoros";
+	public static final String OWN_POMODOROS = "counter";
+	
+	public static final String CONTACT_MAP = "contact";
 }

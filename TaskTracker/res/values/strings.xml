@@ -13,6 +13,9 @@
     <string name="not_completed">Not completed</string>
     <string name="set_pomodoro">Register completed pomodoro</string>
     <string name="set_done">Set this task as done</string>
+    <string name="no_pom_done">You have done no pomodoros yet</string>
+    <string name="shared">Shared</string>
+    <string name="choose_collab">Choose collaborator(optional)</string>
     
     
 </resources>

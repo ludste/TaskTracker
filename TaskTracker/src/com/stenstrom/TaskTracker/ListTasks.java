@@ -38,14 +38,17 @@ public class ListTasks extends ListActivity{
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
                 int position, long id){
+				System.out.println("the id is " + id);
 				try{
-        	String name = ((TextView) view.findViewById(R.id.task_name)).getText().toString();
-        	String end = ((TextView) view.findViewById(R.id.end)).getText().toString();
-        	String pomo = ((TextView) view.findViewById(R.id.pomodoros)).getText().toString();
+					
+//        	String name = ((TextView) view.findViewById(R.id.task_name)).getText().toString();
+//        	String end = ((TextView) view.findViewById(R.id.end)).getText().toString();
+//        	String pomo = ((TextView) view.findViewById(R.id.pomodoros)).getText().toString();
         	Intent in = new Intent(ListTasks.this, SingleTask.class);
-        	in.putExtra(Constants.TASK_NAME, name);
-        	in.putExtra(Constants.END_TIME, end);
-        	in.putExtra(Constants.NUM_OF_POMODOROS, pomo);
+//        	in.putExtra(Constants.TASK_NAME, name);
+//        	in.putExtra(Constants.END_TIME, end);
+//        	in.putExtra(Constants.NUM_OF_POMODOROS, pomo);
+        	in.putExtra(Constants.CONTACT_MAP, allTasks.get((int) id));
         	startActivity(in);
 				}
 				catch(Exception e){
@@ -93,8 +96,12 @@ private class GetTasks extends AsyncTask<Integer, Void, String>{
 //							json.getString(Constants.IS_COLLABORATIVE));
 					HashMap<String, String> task = new HashMap<String, String>();
 					task.put(Constants.TASK_NAME, json.getString(Constants.TASK_NAME));
+					task.put(Constants.TASK_ID_DB, json.getString(Constants.TASK_ID_DB));
+					task.put(Constants.USER_ID_DB, json.getString(Constants.USER_ID_DB));
 					task.put(Constants.END_TIME, json.getString(Constants.END_TIME));
 					task.put(Constants.NUM_OF_POMODOROS, json.getString(Constants.NUM_OF_POMODOROS));
+					task.put(Constants.IS_COLLABORATIVE, json.getString(Constants.IS_COLLABORATIVE));
+					task.put(Constants.NUM_COMPLETED_POMODOROS, json.getString(Constants.NUM_COMPLETED_POMODOROS));
 					Boolean isCompleted = json.getString(Constants.NUM_COMPLETED_POMODOROS).equals(
 							json.getString(Constants.NUM_OF_POMODOROS));
 					String completedText = (isCompleted?"completed": "not completed");
