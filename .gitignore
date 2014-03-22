@@ -14,3 +14,10 @@
 # Maven
 log/
 target/
+
+# Android
+out/
+gen/
+bin/
+*.apk
+*.class
