@@ -4,22 +4,52 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/button_new_task"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="sendMessage"
-        android:text="@string/new_task" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
-    <TextView
-        android:id="@+id/Tasks"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/tasks" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="67dp" >
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/button_new_task"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:onClick="sendMessage"
+            android:text="@string/new_task" />
+
+        <Button
+            android:id="@+id/button_new_task"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/button_new_task"
+            android:onClick="sendMessage"
+            android:text="@string/new_task" />
+
+        <Button
+            android:id="@+id/list_tasks_B_signout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:onClick="signOut"
+            android:text="@string/sign_out" />
+
+    </RelativeLayout>
 
     <ListView
         android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
+    
+        
 
 </LinearLayout>

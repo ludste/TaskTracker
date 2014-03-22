@@ -5,10 +5,11 @@
     
     <string name="tasks">My Tasks</string>
     <string name="task_name">Task</string>
-    <string name="task_end">Due</string>
+    <string name="task_end">Due:</string>
     <string name="task_pomodoros">Pomodoros</string>
     <string name="sign_up">Sign Up</string>
     <string name="sign_in">Sign In</string>
+    <string name="sign_out">Sign Out</string>
     <string name="new_task">New Task</string>
     <string name="button_text">Send</string>
     <string name="change_date">Set due date</string>
@@ -21,10 +22,12 @@
     <string name="choose_collab">Choose collaborator(optional)</string>
     <string name="pomodoros_own">Pomodoros done by you</string>
     <string name="pomodoros_tot">Pomodoros done in total</string>
+    <string name="done_date">Done:</string>
     
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="email">Email</string>
+    
     
     
     

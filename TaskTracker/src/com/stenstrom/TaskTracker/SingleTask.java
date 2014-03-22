@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import android.app.Activity;
@@ -24,6 +26,7 @@ import android.widget.TextView;
 
 public class SingleTask extends Activity {
 	HashMap<String, String> contactMap;
+	String collaborators;
 	int userID;
 	@Override
 	protected void onCreate(android.os.Bundle savedInstanceState) {
@@ -74,10 +77,12 @@ public class SingleTask extends Activity {
 					// LinearLayout singleView =
 					// (LinearLayout)findViewById(R.id.single_task);
 					// singleView.addView(i);
-					// TextView t = new TextView(this);
-					// i
-					// t.setText("This is shared");
-
+					SetWithDB dbConn = new SetWithDB(Constants.getCollab,contactMap.get(Constants.TASK_ID_DB),null);
+					dbConn.execute().get();
+					
+					TextView t = new TextView(this); 
+					 t.setText("these are the collaborators: " + collaborators);
+					
 				}
 
 			}
@@ -92,12 +97,16 @@ public class SingleTask extends Activity {
 	public void registerPomodoro(View view) {
 		SetWithDB dbConn = new SetWithDB(Constants.updatePomodoro,contactMap.get(Constants.TASK_ID_DB),Integer.toString(userID));
 		dbConn.execute();
+		Intent intent = new Intent(SingleTask.this, ListTasks.class);
+		startActivity(intent);
 		
 	}
 
 	public void setDone(View view) {
 		SetWithDB dbConn = new SetWithDB(Constants.setDone,contactMap.get(Constants.TASK_ID_DB),Integer.toString(userID));
 		dbConn.execute();
+		Intent intent = new Intent(SingleTask.this, ListTasks.class);
+		startActivity(intent);
 
 	}
 
@@ -122,6 +131,16 @@ public class SingleTask extends Activity {
 			nameValuePairs.add(new BasicNameValuePair(Constants.USER_ID_DB, userID));
 			ServiceHandler serviceHandler = new ServiceHandler();
 			String jsonStr = serviceHandler.makeServiceCall(url, ServiceHandler.GET, nameValuePairs);
+			if(method.equals(Constants.getCollab)){
+				try{
+					JSONObject all = new JSONObject(jsonStr);
+					collaborators = all.getString("data");
+					
+				}
+				catch(Exception e){
+					e.printStackTrace();
+				}
+			}
 			if (jsonStr.contains("true"))
 				return true;
 			return false;
@@ -132,7 +151,7 @@ public class SingleTask extends Activity {
 			if (result) {
 				new AlertDialog.Builder(SingleTask.this)
 				.setMessage(
-						"Your pomodoro has now been updated")
+						"It has now been updated")
 				.setNeutralButton("OK", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 
@@ -150,8 +169,7 @@ public class SingleTask extends Activity {
 							}
 						}).show();
 			}
-			Intent intent = new Intent(SingleTask.this, ListTasks.class);
-			startActivity(intent);
+			
 		}
 
 	}

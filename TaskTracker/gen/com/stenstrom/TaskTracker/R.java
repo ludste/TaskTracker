@@ -14,7 +14,6 @@ public final class R {
         public static final int shared_icon=0x7f020000;
     }
     public static final class id {
-        public static final int Tasks=0x7f050007;
         public static final int button_change_date=0x7f05000b;
         public static final int button_new_task=0x7f050006;
         public static final int button_send=0x7f05000c;
@@ -32,6 +31,7 @@ public final class R {
         public static final int end_s_text=0x7f050018;
         public static final int end_text=0x7f050001;
         public static final int is_completed=0x7f050005;
+        public static final int list_tasks_B_signout=0x7f050007;
         public static final int name_edit=0x7f050008;
         public static final int password=0x7f05000f;
         public static final int pomodoro_edit=0x7f050009;
@@ -61,27 +61,29 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f040000;
-        public static final int button_text=0x7f040009;
-        public static final int change_date=0x7f04000a;
-        public static final int choose_collab=0x7f040011;
-        public static final int completed=0x7f04000b;
-        public static final int email=0x7f040016;
-        public static final int new_task=0x7f040008;
-        public static final int no_pom_done=0x7f04000f;
-        public static final int not_completed=0x7f04000c;
-        public static final int password=0x7f040015;
-        public static final int pomodoros_own=0x7f040012;
-        public static final int pomodoros_tot=0x7f040013;
+        public static final int button_text=0x7f04000a;
+        public static final int change_date=0x7f04000b;
+        public static final int choose_collab=0x7f040012;
+        public static final int completed=0x7f04000c;
+        public static final int done_date=0x7f040015;
+        public static final int email=0x7f040018;
+        public static final int new_task=0x7f040009;
+        public static final int no_pom_done=0x7f040010;
+        public static final int not_completed=0x7f04000d;
+        public static final int password=0x7f040017;
+        public static final int pomodoros_own=0x7f040013;
+        public static final int pomodoros_tot=0x7f040014;
         public static final int preference_key_file=0x7f040001;
-        public static final int set_done=0x7f04000e;
-        public static final int set_pomodoro=0x7f04000d;
-        public static final int shared=0x7f040010;
+        public static final int set_done=0x7f04000f;
+        public static final int set_pomodoro=0x7f04000e;
+        public static final int shared=0x7f040011;
         public static final int sign_in=0x7f040007;
+        public static final int sign_out=0x7f040008;
         public static final int sign_up=0x7f040006;
         public static final int task_end=0x7f040004;
         public static final int task_name=0x7f040003;
         public static final int task_pomodoros=0x7f040005;
         public static final int tasks=0x7f040002;
-        public static final int username=0x7f040014;
+        public static final int username=0x7f040016;
     }
 }

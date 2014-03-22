@@ -2,6 +2,7 @@ package com.stenstrom.TaskTracker;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 
@@ -13,6 +14,7 @@ import org.json.JSONObject;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -33,7 +35,6 @@ public class ListTasks extends ListActivity{
     protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		userID = getSharedPreferences(getString(R.string.preference_key_file), 0).getInt(Constants.USER_ID, -1);
-		System.out.println("Username på listtasks " + userID);
 		if(userID ==-1){
 			System.err.println("Userid not found");//TODO intent to signin page
 		}
@@ -67,6 +68,13 @@ public class ListTasks extends ListActivity{
 	public void sendMessage(View view){
 		Intent intent = new Intent(ListTasks.this, NewTask.class);
 		System.out.println("go to new ");
+		startActivity(intent);
+	}
+	public void signOut(View view){
+		Editor edit = getSharedPreferences(getString(R.string.preference_key_file), 0).edit();
+		edit.clear();
+		edit.apply();
+		Intent intent = new Intent(this, MyActivity.class);
 		startActivity(intent);
 	}
 
@@ -111,6 +119,7 @@ private class GetTasks extends AsyncTask<Integer, Void, String>{
 					
 					allTasks.add(task);
 				}
+				Collections.sort(allTasks, new SortTasks());
 			}
 			System.err.println("All tasks added");
 		} catch (Exception e) {
@@ -122,14 +131,14 @@ private class GetTasks extends AsyncTask<Integer, Void, String>{
 	
 	protected void onPostExecute(String jsonStr){
 		String statusCode;
-		TextView statusCodeView = (TextView) findViewById(R.id.Tasks);
 		try {
 			JSONObject allResultJson = new JSONObject(jsonStr);
 			statusCode = allResultJson.getString("status");
 			if (statusCode.equals(Constants.getTasks)) {
 			//TODO show "could not reach task database" if not ok
+			
 			adapter = new CustomAdapter(ListTasks.this, allTasks);
-			((CustomAdapter) adapter).sort(null);
+//			((CustomAdapter) adapter).sort(null);
 //					new SimpleAdapter(ListTasks.this, allTasks, 
 //					R.layout.list_item, 
 //					new String[]{
@@ -139,14 +148,9 @@ private class GetTasks extends AsyncTask<Integer, Void, String>{
 //			});
 			setListAdapter(adapter);
 			}
-			else{
-				statusCodeView.setText("Could not get info from db, error: "
-								+ statusCode);
-			}
 		}
 		catch(Exception e){
 			e.printStackTrace();
-			statusCodeView.append("Problem with " + e.getMessage());
 		}
 	}
 }

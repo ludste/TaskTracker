@@ -18,6 +18,7 @@ public class CustomAdapter extends ArrayAdapter<HashMap<String, String>>{
 	public CustomAdapter(Context context, ArrayList<HashMap<String, String>> objects) {
 		super(context, R.layout.list_item, objects);
 		this.objects=objects;
+//		this.sort(null);
 	}
 	
 	@Override
@@ -37,8 +38,11 @@ public class CustomAdapter extends ArrayAdapter<HashMap<String, String>>{
 		 PomView.setText(task.get(Constants.NUM_OF_POMODOROS));
 		 System.out.println("task name " + task.get(Constants.TASK_NAME) + " completed :"+ isCompleted);
 		 convertView.setBackgroundColor(Color.BLACK);
+		 ((TextView) convertView.findViewById(R.id.end_text)).setText(R.string.task_end);
 		 if(isCompleted.equals("1")){
 			 convertView.setBackgroundColor(Color.GRAY);
+			 endDateView.setText(task.get(Constants.COMPLETED_WHOLE_TASK_DATE));
+			 ((TextView) convertView.findViewById(R.id.end_text)).setText(R.string.done_date);
 		 }
 		 
 		 return convertView;

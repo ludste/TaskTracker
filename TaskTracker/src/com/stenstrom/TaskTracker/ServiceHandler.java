@@ -67,7 +67,7 @@ public class ServiceHandler {
 					url += "?" + paramString;
 				}
 				HttpGet httpGet = new HttpGet(url);
-				System.out.println(url);
+//				System.out.println(url);
 				httpResponse = httpClient.execute(httpGet);
 
 			}

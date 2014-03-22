@@ -23,29 +23,28 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-
-        
-
-        <TextView
+ <TextView
             android:id="@+id/end_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="75dp"
-            android:layout_toRightOf="@+id/end"
+            android:layout_marginLeft="0dp"
             android:paddingBottom="2dip"
             android:text="@string/task_end"
-            android:textColor="#acacac" />
+            android:textColor="#acacac" 
+            />
         <TextView
             android:id="@+id/end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+             android:layout_marginLeft="75dp"
             android:layout_alignParentTop="true"
             android:paddingBottom="2dip"
             android:text="@string/task_end"
             android:textColor="#acacac" />
-        
+
+
+       
 
     </RelativeLayout>
 
