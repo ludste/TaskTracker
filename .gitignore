@@ -15,9 +15,29 @@
 log/
 target/
 
+
 # Android
 out/
-gen/
 bin/
-*.apk
-*.class
+gen/
+TaskTracker/gen/com/stenstrom/TaskTracker/BuildConfig.java
+
+TaskTracker/src/com/stenstrom/TaskTracker/MyActivity.java
+
+TaskTracker/res/layout/sign_up.xml
+
+TaskTracker/out/production/TaskTracker/com/stenstrom/TaskTracker/R.class
+
+TaskTracker/out/production/TaskTracker/com/stenstrom/TaskTracker/R$string.class
+
+TaskTracker/out/production/TaskTracker/com/stenstrom/TaskTracker/R$layout.class
+
+TaskTracker/out/production/TaskTracker/com/stenstrom/TaskTracker/R$id.class
+
+TaskTracker/out/production/TaskTracker/com/stenstrom/TaskTracker/MyActivity.class
+
+TaskTracker/out/production/TaskTracker/TaskTracker.unaligned.apk
+
+TaskTracker/out/production/TaskTracker/TaskTracker.apk
+
+TaskTracker/out/production/TaskTracker/TaskTracker.apk
