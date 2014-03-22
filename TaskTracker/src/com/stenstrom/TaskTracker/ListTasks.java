@@ -1,6 +1,8 @@
 package com.stenstrom.TaskTracker;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 
 import org.apache.http.NameValuePair;
@@ -9,9 +11,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,10 +27,16 @@ import android.widget.TextView;
 
 public class ListTasks extends ListActivity{
 	ArrayList<HashMap<String,String>> allTasks;
-	int userID =1; //TODO change this to look at userfile
+	int userID;
+	ListAdapter adapter;
 	@Override
     protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
+		userID = getSharedPreferences(getString(R.string.preference_key_file), 0).getInt(Constants.USER_ID, -1);
+		System.out.println("Username på listtasks " + userID);
+		if(userID ==-1){
+			System.err.println("Userid not found");//TODO intent to signin page
+		}
         setContentView(R.layout.list_tasks);
         allTasks = new ArrayList<HashMap<String, String>>();
         ListView listView = getListView();
@@ -40,14 +50,7 @@ public class ListTasks extends ListActivity{
                 int position, long id){
 				System.out.println("the id is " + id);
 				try{
-					
-//        	String name = ((TextView) view.findViewById(R.id.task_name)).getText().toString();
-//        	String end = ((TextView) view.findViewById(R.id.end)).getText().toString();
-//        	String pomo = ((TextView) view.findViewById(R.id.pomodoros)).getText().toString();
         	Intent in = new Intent(ListTasks.this, SingleTask.class);
-//        	in.putExtra(Constants.TASK_NAME, name);
-//        	in.putExtra(Constants.END_TIME, end);
-//        	in.putExtra(Constants.NUM_OF_POMODOROS, pomo);
         	in.putExtra(Constants.CONTACT_MAP, allTasks.get((int) id));
         	startActivity(in);
 				}
@@ -102,10 +105,9 @@ private class GetTasks extends AsyncTask<Integer, Void, String>{
 					task.put(Constants.NUM_OF_POMODOROS, json.getString(Constants.NUM_OF_POMODOROS));
 					task.put(Constants.IS_COLLABORATIVE, json.getString(Constants.IS_COLLABORATIVE));
 					task.put(Constants.NUM_COMPLETED_POMODOROS, json.getString(Constants.NUM_COMPLETED_POMODOROS));
-					Boolean isCompleted = json.getString(Constants.NUM_COMPLETED_POMODOROS).equals(
-							json.getString(Constants.NUM_OF_POMODOROS));
-					String completedText = (isCompleted?"completed": "not completed");
-					task.put(Constants.IS_COMPLETED, completedText);
+					task.put(Constants.OWN_POMODOROS, json.getString(Constants.OWN_POMODOROS));
+					task.put(Constants.COMPLETED_WHOLE_TASK_DATE, json.getString(Constants.COMPLETED_WHOLE_TASK_DATE));
+					task.put(Constants.IS_COMPLETED, json.getString(Constants.IS_COMPLETED));
 					
 					allTasks.add(task);
 				}
@@ -126,13 +128,15 @@ private class GetTasks extends AsyncTask<Integer, Void, String>{
 			statusCode = allResultJson.getString("status");
 			if (statusCode.equals(Constants.getTasks)) {
 			//TODO show "could not reach task database" if not ok
-			ListAdapter adapter = new SimpleAdapter(ListTasks.this, allTasks, 
-					R.layout.list_item, 
-					new String[]{
-					Constants.TASK_NAME, Constants.END_TIME, Constants.NUM_OF_POMODOROS, Constants.IS_COMPLETED
-			}, new int[]{
-				R.id.task_name, R.id.end, R.id.pomodoros, R.id.is_completed	
-			});
+			adapter = new CustomAdapter(ListTasks.this, allTasks);
+			((CustomAdapter) adapter).sort(null);
+//					new SimpleAdapter(ListTasks.this, allTasks, 
+//					R.layout.list_item, 
+//					new String[]{
+//					Constants.TASK_NAME, Constants.END_TIME, Constants.NUM_OF_POMODOROS, Constants.IS_COMPLETED
+//			}, new int[]{
+//				R.id.task_name, R.id.end, R.id.pomodoros, R.id.is_completed	
+//			});
 			setListAdapter(adapter);
 			}
 			else{

@@ -9,7 +9,9 @@ import org.w3c.dom.Text;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,9 +24,11 @@ import android.widget.TextView;
 
 public class SingleTask extends Activity {
 	HashMap<String, String> contactMap;
+	int userID;
 	@Override
 	protected void onCreate(android.os.Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		userID= getSharedPreferences(getString(R.string.preference_key_file), 0).getInt(Constants.USER_ID, -1);
 		try {
 
 			setContentView(R.layout.single_task);
@@ -34,6 +38,7 @@ public class SingleTask extends Activity {
 			String pomodoros;
 			String completedPom;
 			String isCollab;
+			String completedByMe;
 			Bundle extras = getIntent().getExtras();
 			if (extras != null) {
 				contactMap = (HashMap<String, String>) extras
@@ -43,22 +48,25 @@ public class SingleTask extends Activity {
 				pomodoros = contactMap.get(Constants.NUM_OF_POMODOROS);
 				completedPom = contactMap.get(Constants.NUM_COMPLETED_POMODOROS);
 				isCollab = contactMap.get(Constants.IS_COLLABORATIVE);
+				completedByMe = contactMap.get(Constants.OWN_POMODOROS);
 
 				TextView nameView = (TextView) findViewById(R.id.task_name_s);
 				TextView endView = (TextView) findViewById(R.id.end_s);
 				TextView pomView = (TextView) findViewById(R.id.pomodoros_s);
-				TextView completed = (TextView) findViewById(R.id.pomodoros_comp_tot);
+				TextView completedView = (TextView) findViewById(R.id.pomodoros_comp_tot);
+				TextView completedByMeView = (TextView) findViewById(R.id.pomodoros_comp_me);
 				// TextView collabView =
 				// (TextView)findViewById(R.id.collaborate);
 
 				nameView.setText(taskName);
 				endView.setText(endTime);
 				pomView.setText(pomodoros);
-				if (!completedPom.equals("null")) {
-					completed.setText(completedPom);
+				if (!completedPom.equals("0")) {
+					completedView.setText(completedPom);
+					completedByMeView.setText(completedByMe);
 				}
 				else {
-					completed.setText(R.string.no_pom_done);
+					completedView.setText(R.string.no_pom_done);
 				}
 				if (isCollab.equals("1")) {
 					ImageView i = (ImageView) findViewById(R.id.collab_image);
@@ -82,13 +90,15 @@ public class SingleTask extends Activity {
 	}
 
 	public void registerPomodoro(View view) {
-		SetWithDB dbConn = new SetWithDB(Constants.updatePomodoro,contactMap.get(Constants.TASK_ID_DB),contactMap.get(Constants.TASK_ID_DB));
+		SetWithDB dbConn = new SetWithDB(Constants.updatePomodoro,contactMap.get(Constants.TASK_ID_DB),Integer.toString(userID));
 		dbConn.execute();
+		
 	}
 
 	public void setDone(View view) {
-		SetWithDB dbConn = new SetWithDB(Constants.setDone,contactMap.get(Constants.TASK_ID_DB),contactMap.get(Constants.TASK_ID_DB));
+		SetWithDB dbConn = new SetWithDB(Constants.setDone,contactMap.get(Constants.TASK_ID_DB),Integer.toString(userID));
 		dbConn.execute();
+
 	}
 
 	private class SetWithDB extends AsyncTask<Void, Void, Boolean> {
@@ -140,7 +150,8 @@ public class SingleTask extends Activity {
 							}
 						}).show();
 			}
-
+			Intent intent = new Intent(SingleTask.this, ListTasks.class);
+			startActivity(intent);
 		}
 
 	}

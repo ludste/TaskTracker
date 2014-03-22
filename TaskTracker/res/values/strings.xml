@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">TaskTracker</string>
+    <string name="preference_key_file">com.stenstrom.TaskTracker.PREFERENCE_FILE_KEY</string>
+    
     <string name="tasks">My Tasks</string>
     <string name="task_name">Task</string>
     <string name="task_end">Due</string>
     <string name="task_pomodoros">Pomodoros</string>
     <string name="sign_up">Sign Up</string>
+    <string name="sign_in">Sign In</string>
     <string name="new_task">New Task</string>
     <string name="button_text">Send</string>
     <string name="change_date">Set due date</string>
@@ -16,6 +19,13 @@
     <string name="no_pom_done">You have done no pomodoros yet</string>
     <string name="shared">Shared</string>
     <string name="choose_collab">Choose collaborator(optional)</string>
+    <string name="pomodoros_own">Pomodoros done by you</string>
+    <string name="pomodoros_tot">Pomodoros done in total</string>
+    
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    
     
     
 </resources>

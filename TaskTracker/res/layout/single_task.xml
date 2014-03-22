@@ -1,41 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/single_task"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/single_task" >
-    
-    
+    android:orientation="vertical" >
+
     <TextView
         android:id="@+id/task_name_s"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="2dip"
         android:paddingTop="6dip"
+        android:text="@string/task_name"
         android:textColor="#43bd00"
         android:textSize="16sp"
-        android:textStyle="bold"
-        android:text="@string/task_name" />
- 
-    <!-- End label -->
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/end_s_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="2dip"
+        android:text="@string/task_end"
+        android:textColor="#acacac" />
+
     <TextView
         android:id="@+id/end_s"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="2dip"
-        android:textColor="#acacac" 
-        android:text="@string/task_end" />
- 
-    <!-- Mobile number label -->
+        android:text="@string/task_end"
+        android:textColor="#acacac" />
+
+    <TextView
+        android:id="@+id/pomodoros_s_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="@string/task_pomodoros"
+        android:textColor="#5d5d5d"
+        android:textStyle="bold" />
+
     <TextView
         android:id="@+id/pomodoros_s"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="left"
+        android:text="@string/task_pomodoros"
         android:textColor="#5d5d5d"
-        android:textStyle="bold" 
-        android:text="@string/task_pomodoros"/>
-     <TextView
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/pomodoros_comp_tot_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="@string/pomodoros_tot"
+        android:textColor="#5d5d5d"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/pomodoros_comp_tot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,18 +67,36 @@
         android:textColor="#5d5d5d"
         android:textStyle="bold" />
 
-	<ImageView
-	    android:id="@+id/collab_image"
-	    android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/pomodoros_comp_me_text"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/shared"/>
+        android:gravity="left"
+        android:text="@string/pomodoros_own"
+        android:textColor="#5d5d5d"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/pomodoros_comp_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:textColor="#5d5d5d"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/collab_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/shared" />
+
     <Button
         android:id="@+id/button_set_pomodoro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="registerPomodoro"
         android:text="@string/set_pomodoro" />
-    
+
     <Button
         android:id="@+id/button_set_done"
         android:layout_width="wrap_content"

@@ -1,11 +1,18 @@
 package com.stenstrom.TaskTracker;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -25,104 +32,120 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class MyActivity extends Activity {
 	/**
 	 * Called when the activity is first created.
 	 */
+	SharedPreferences sharedPref;
+	int userID;
 //	TextView resultView;
 //	ArrayList<Task> allTasks = new ArrayList<Task>();
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.sign_up);
+		setContentView(R.layout.sign_in);
+		sharedPref = getSharedPreferences(getString(R.string.preference_key_file), 0);
+		int userid = sharedPref.getInt(Constants.USER_ID, -1);
+		if(userid != -1){
+			Intent intent = new Intent(getApplicationContext(), ListTasks.class);
+			startActivity(intent);
+		}
 
-//		resultView = (TextView) findViewById(R.id.Tasks);
-		Intent intent = new Intent(getApplicationContext(), ListTasks.class);
-		startActivity(intent);
-//		int userID = 1;
+	}
+	
+	public void signIn(View view){
+		EditText editUsername = (EditText) findViewById(R.id.username);
+		EditText editPass = (EditText) findViewById(R.id.password);
 		
-//		new GetTasks().execute(userID);
-		//Now alltasks is populated
-
+		String username = editUsername.getText().toString();
+		String password = editPass.getText().toString();
+		
+		SignUpIn signup = new SignUpIn(username, password, null, Constants.authenticate);
+		boolean worked = false;
+		try {
+			worked = signup.execute().get();
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+		if(worked){
+			Editor edit = sharedPref.edit();
+			edit.putInt(Constants.USER_ID, userID);
+			edit.commit();
+			
+			System.out.println("userid :" + sharedPref.getInt(Constants.USER_ID, -1));
+			Intent intent = new Intent(getApplicationContext(), ListTasks.class);
+			startActivity(intent);
+		}else{
+			System.err.println("did not work");
+		}
+	}
+	
+	public void signUp(View view){
+		
 	}
 
 //Gammal kod, endast kvar som referens
 	
-//	private class GetTasks extends AsyncTask<Integer, Void, String>{
-//		String url = "http://ludste.synology.me/TaskTracker/index.php";
-//		
-//		@Override
-//		protected String doInBackground(Integer... arg0) {
-//			int userID = arg0[0];
-//			ServiceHandler serviceHandler = new ServiceHandler();
-//			ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-//			nameValuePairs.add(new BasicNameValuePair(Constants.METHOD, Constants.getTasks));
-//			nameValuePairs.add(new BasicNameValuePair(Constants.USER_ID, Integer.toString(userID)));
-//			String jsonStr = serviceHandler.makeServiceCall(url, ServiceHandler.GET, nameValuePairs);
-//			try {
-//				JSONObject allResultJson = new JSONObject(jsonStr);
-//				String statusCode = allResultJson.getString("status");
-//				if (statusCode.equals(Constants.getTasks)) {
-//					JSONArray jArray = allResultJson.getJSONArray("data");					
-//					for (int i = 0; i < jArray.length(); i++) {
-//						Task task;
-//						JSONObject json = jArray.getJSONObject(i);
-//						task = new Task(json.getString(Constants.TASK_ID_DB),
-//								json.getString(Constants.TASK_NAME),
-//								json.getString(Constants.START_TIME),
-//								json.getString(Constants.END_TIME),
-//								json.getString(Constants.COMPLETED_WHOLE_TASK),
-//								json.getString(Constants.NUM_OF_POMODOROS),
-//								json.getString(Constants.IS_COLLABORATIVE));
-//						
-//						allTasks.add(task);
-//					}
-//				}
-//				System.err.println("All tasks added");
-//			} catch (Exception e) {
-//				// TODO: handle exception
-//				Log.e("log_tag", "Error Parsing Data " + e.toString());
-//				resultView.append("Error Parsing Data " + e.toString() + "\n");
-//			}
-//			return jsonStr;
-//		}
-//		
-//		protected void onPostExecute(String jsonStr){
-//			String statusCode;
-//			try {
-//				JSONObject allResultJson = new JSONObject(jsonStr);
-//				String s = "";
-//				statusCode = allResultJson.getString("status");
-//				if (statusCode.equals(Constants.getTasks)) {
-//					JSONArray jArray = allResultJson.getJSONArray("data");					
-//					for (int i = 0; i < jArray.length(); i++) {
-//						JSONObject json = jArray.getJSONObject(i);						
-//						s = s + "id : " + json.getInt("id") + "\n" + "Name : "
-//								+ json.getString("name") + "\n" + "Start : "
-//								+ json.getString("start_date") + "\n" + "End : "
-//								+ json.getString("end_date") + "\n"
-//								+ "Completion time : "
-//								+ json.getString(Constants.COMPLETED_WHOLE_TASK) + "\n"
-//								+ "Num of Pomodoros : "
-//								+ json.getString(Constants.NUM_OF_POMODOROS) + "\n"
-//								+ "Collaborative : " + json.getInt("collaborative")
-//								+ "\n\n";
-//					}
-//
-//					resultView.append("\n"+s);
-//				} else {
-//					resultView.setText("Could not get info from db, error: "
-//							+ statusCode);
-//				}
-//			} catch (Exception e) {
-//				// TODO: handle exception
-//				Log.e("log_tag", "Error Parsing Data " + e.toString());
-//				resultView.append("Error Parsing Data " + e.toString() + "\n");
-//			}
-//		}
-//	}
+	public class SignUpIn extends AsyncTask<Void, Boolean, Boolean>{
+		String url = "http://ludste.synology.me/TaskTracker/index.php";
+		
+		String user;
+		String pass;
+		String email;
+		String method;
+		
+		public SignUpIn(String user, String pass, String email, String method){
+			this.user = user;
+			this.pass = pass;
+			this.email = email;
+			this.method = method;
+		}
+		
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+			ServiceHandler serviceHandler = new ServiceHandler();
+			ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+			nameValuePairs.add(new BasicNameValuePair(Constants.METHOD, method));
+			nameValuePairs.add(new BasicNameValuePair(Constants.username, user));
+			nameValuePairs.add(new BasicNameValuePair(Constants.password, pass));
+			if(method.equals(Constants.signUp)){
+				nameValuePairs.add(new BasicNameValuePair(Constants.email, email));
+			}
+			String jsonStr = serviceHandler.makeServiceCall(url, ServiceHandler.GET, nameValuePairs);
+			System.out.println(jsonStr);
+			JSONObject allResultJson;
+			try {
+				allResultJson = new JSONObject(jsonStr);
+				String status = allResultJson.getString("status");
+				if(status.equals(Constants.authenticate)){
+					userID = Integer.parseInt(allResultJson.getString("data"));
+					if(userID == -1){
+						return false;
+					}else{
+						return true;
+					}
+				}
+			}
+			catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return false;
+		}
+		
+		protected Boolean onPostExecute(boolean worked){
+			return worked;
+	}
+	}
 	//Behöver inte denna funk längre, men finns kvar för ev referensbehov
 //	public JSONObject getDataFromDatabase(int userID) {
 //		InputStream inputStream = null;
