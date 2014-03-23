@@ -69,7 +69,6 @@ public class SingleTask extends Activity {
 					completedByMeView.setText(completedByMe);
 				if (isCollab.equals("1")) {
 					ImageView i = (ImageView) findViewById(R.id.collab_image);
-					i.setImageResource(R.drawable.shared_icon);
 					i.setVisibility(View.VISIBLE);
 					
 					String taskID = contactMap.get(Constants.TASK_ID_DB);

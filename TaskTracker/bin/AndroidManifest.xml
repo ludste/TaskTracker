@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.stenstrom.TaskTracker"
-    android:versionCode="1"
-    android:versionName="1.0" >
+          package="com.stenstrom.TaskTracker"
+          android:versionCode="1"
+          android:versionName="1.0">
 
-    <uses-sdk android:minSdkVersion="12" />
+    <uses-sdk android:minSdkVersion="17"/>
 
-    <permission android:name="android.permission.INTERNET" />
+    <permission android:name="android.permission.INTERNET"/>
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
-    <application android:label="@string/app_name" >
+    <application android:label="@string/app_name">
         <activity
-            android:name="ListTasks"
-            android:label="@string/tasks" >
+                android:name="ListTasks"
+                android:label="@string/tasks">
         </activity>
         <activity
-            android:name="SingleTask"
-            android:label="@string/task_name" >
+                android:name="SingleTask"
+                android:label="@string/task_name">
         </activity>
         <activity
-            android:name="MyActivity"
-            android:label="@string/app_name" >
+                android:name="MyActivity"
+                android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
-            android:name="NewTask"
-            android:label="@string/new_task" >
+                android:name="NewTask"
+                android:label="@string/new_task">
         </activity>
     </application>
 

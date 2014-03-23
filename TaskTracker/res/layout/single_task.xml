@@ -158,11 +158,18 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:src="@drawable/shared"
+            android:visibility="gone"
             android:contentDescription="@string/shared" />
 
     </RelativeLayout>
 
-    <Button
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+            <Button
         android:id="@+id/button_set_pomodoro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -171,9 +178,11 @@
 
     <Button
         android:id="@+id/button_set_done"
+        android:layout_toRightOf="@+id/button_set_pomodoro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="setDone"
         android:text="@string/set_done" />
+    </RelativeLayout>
 
 </LinearLayout>

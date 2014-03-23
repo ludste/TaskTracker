@@ -2,43 +2,64 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:background="@color/background" >
+    android:background="@color/background"
+    android:orientation="vertical" >
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal" >
 
-
-        <Button
-            android:id="@+id/button_new_task"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:onClick="sendMessage"
-            android:text="@string/new_task"
-            android:textColor="@color/button_color"
-            android:background="@color/button_background" />
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
 
-        <Button
-            android:id="@+id/list_tasks_B_signout"
+            <Button
+                android:id="@+id/button_new_task"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/button_background"
+                android:onClick="sendMessage"
+                android:text="@string/new_task"
+                android:textColor="@color/button_color" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/list_tasks_B_sync"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/button_background"
+                android:onClick="sync"
+                android:text="@string/button_sync"
+                android:textColor="@color/button_color" />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:onClick="signOut"
-            android:text="@string/sign_out"
-            android:textColor="@color/button_color"
-            android:background="@color/button_background" />
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
 
-    </RelativeLayout>
+            <Button
+                android:id="@+id/list_tasks_B_signout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/button_background"
+                android:onClick="signOut"
+                android:text="@string/sign_out"
+                android:textColor="@color/button_color" />
+        </RelativeLayout>
+    </LinearLayout>
 
     <ListView
         android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
-    
-        
 
 </LinearLayout>
