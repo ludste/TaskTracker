@@ -75,7 +75,34 @@ public class MyActivity extends Activity {
     }
 
     public void signUp(View view) {
+        EditText editUsername = (EditText) findViewById(R.id.sign_up_ET_username);
+        EditText editPass = (EditText) findViewById(R.id.sign_up_ET_password);
+        EditText editEmail = (EditText) findViewById(R.id.sign_up_ET_email);
 
+        String username = editUsername.getText().toString();
+        String password = editPass.getText().toString();
+        String email = editEmail.getText().toString();
+
+        SignUpIn signup = new SignUpIn(username, password, email, Constants.signUp);
+        boolean worked = false;
+        try {
+            worked = signup.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        if (worked) {
+            Editor edit = sharedPref.edit();
+            edit.putInt(Constants.USER_ID, userID);
+            edit.commit();
+
+            System.out.println("userid :" + sharedPref.getInt(Constants.USER_ID, -1));
+            Intent intent = new Intent(getApplicationContext(), ListTasks.class);
+            startActivity(intent);
+        } else {
+            System.err.println("did not work");
+        }
     }
 
 
