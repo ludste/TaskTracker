@@ -20,7 +20,7 @@
     <string name="set_done">Set done</string>
     <string name="no_pom_done">You have done no pomodoros yet</string>
     <string name="shared">Shared</string>
-    <string name="choose_collab">Choose collaborator(optional)</string>
+    <string name="choose_collab">Collaborators(optional)</string>
     <string name="pomodoros_own">You</string>
     <string name="pomodoros_tot">Total</string>
     <string name="done_date">Done</string>

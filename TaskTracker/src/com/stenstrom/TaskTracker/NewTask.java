@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -145,6 +146,17 @@ public class NewTask extends Activity implements DatePickerDialog.OnDateSetListe
 			this.date = date;
 			collaborators = collab;
 		}
+		private ProgressDialog pDialog;
+	    @Override
+	    protected void onPreExecute() {
+	        super.onPreExecute();
+	        // Showing progress dialog
+	        pDialog = new ProgressDialog(NewTask.this);
+	        pDialog.setMessage("Please wait...");
+	        pDialog.setCancelable(false);
+	        pDialog.show();
+
+	    }
 
 		@Override
 		protected Boolean doInBackground(Void... params) {
@@ -188,6 +200,8 @@ public class NewTask extends Activity implements DatePickerDialog.OnDateSetListe
 		}
 		@Override
 		protected void onPostExecute(Boolean isSuccessful){
+			if (pDialog.isShowing())
+	            pDialog.dismiss();
 			if(isSuccessful){
 			System.err.println("Now go to listtasks");
 				Intent intent = new Intent(NewTask.this, ListTasks.class);

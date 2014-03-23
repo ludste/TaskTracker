@@ -3,34 +3,73 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/background" >
+    android:background="@color/background"
+    android:padding="20dp" >
 
     <EditText
         android:id="@+id/name_edit"
         android:layout_width="188dp"
         android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:textColor="@color/text"
+        android:textSize="30sp"
         android:hint="@string/task_name" />
+    <View
+        android:id="@+id/separator"
+        android:layout_width="fill_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/gray"
+        android:visibility="visible" />
     <EditText
         android:id="@+id/pomodoro_edit"
-        android:layout_width="188dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
+        android:textSize="30sp"
+        android:background="@color/background"
+        android:textColor="@color/text"
         android:hint="@string/task_pomodoros" />
+    <View
+        android:id="@+id/separator"
+        android:layout_width="fill_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/gray"
+        android:visibility="visible" />
     <EditText
         android:id="@+id/choose_collab"
-        android:layout_width="188dp"
+        android:layout_width="fill_parent"
+        android:textSize="30sp"
         android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:textColor="@color/text"
         android:hint="@string/choose_collab" />
+    <View
+        android:id="@+id/separator"
+        android:layout_width="fill_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/gray"
+        android:visibility="visible" />
     <Button
         android:id="@+id/button_change_date"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textColor="#afafaf"
+        android:background="@color/background"
+         android:textSize="30sp"
+        android:textColor="@color/header2"
+         android:gravity="left|center_vertical"
         android:text="@string/change_date" />
+    <View
+        android:id="@+id/separator"
+        android:layout_width="fill_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/gray"
+        android:visibility="visible" />
     <Button
         android:id="@+id/button_send"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="@color/button_background"
+        android:textColor="@color/button_color"
         android:onClick="sendToBackend"
         android:text="@string/button_text" />
 

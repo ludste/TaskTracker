@@ -2,6 +2,7 @@ package com.stenstrom.TaskTracker;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -142,7 +143,7 @@ public class SingleTask extends Activity {
             public void run() {
                 long millis = millisGoal - System.currentTimeMillis();
                 if (millis <= 0) {
-                    if (type.equals(Constants.TIME_POMODORO)){
+                    if (type.equals(Constants.TIME_POMODORO)) {
                         registerPomodoro(null);
                     }
                     return;
@@ -174,6 +175,19 @@ public class SingleTask extends Activity {
             this.userID = userID;
         }
 
+        private ProgressDialog pDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            // Showing progress dialog
+            pDialog = new ProgressDialog(SingleTask.this);
+            pDialog.setMessage("Please wait...");
+            pDialog.setCancelable(false);
+            pDialog.show();
+
+        }
+
         @Override
         protected Boolean doInBackground(Void... params) {
             ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
@@ -199,6 +213,8 @@ public class SingleTask extends Activity {
         }
 
         protected void onPostExecute(Boolean result) {
+            if (pDialog.isShowing())
+                pDialog.dismiss();
             if (!method.equals(Constants.getCollab)) {
                 if (result) {
                     new AlertDialog.Builder(SingleTask.this).setMessage("It has now been updated")
