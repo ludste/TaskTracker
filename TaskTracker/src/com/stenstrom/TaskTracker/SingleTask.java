@@ -22,9 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SingleTask extends Activity {
-    <<<<<<
-    <HEAD
-            HashMap<String, String> contactMap;
+    HashMap<String, String> contactMap;
     String collaborators;
     int userID;
     Handler timerHandler;
