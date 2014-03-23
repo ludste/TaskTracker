@@ -59,9 +59,10 @@
                     />
         </RelativeLayout>
     </LinearLayout>
+
     <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="122dp">
+        android:layout_width="match_parent"
+        android:layout_height="197dp" >
 
         <TextView
                 android:id="@+id/task_name_s"
@@ -188,6 +189,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/pomodoros_s"
                 android:text="@string/collaborators"
+                 android:textColor="@color/header2"
+                 android:textStyle="bold"
                 android:visibility="gone"/>
 
         <TextView

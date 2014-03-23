@@ -192,15 +192,15 @@ public final class R {
         public static final int button_change_date=0x7f06000e;
         public static final int button_new_task=0x7f060008;
         public static final int button_send=0x7f06000f;
-        public static final int button_set_done=0x7f06002b;
-        public static final int button_set_pomodoro=0x7f06002a;
+        public static final int button_set_done=0x7f06001f;
+        public static final int button_set_pomodoro=0x7f06001e;
         public static final int button_sing_in=0x7f060016;
         public static final int button_sing_up_instead=0x7f060017;
         public static final int choose_collab=0x7f06000d;
-        public static final int collab_image=0x7f060029;
+        public static final int collab_image=0x7f06002c;
         public static final int end=0x7f060002;
-        public static final int end_s=0x7f060020;
-        public static final int end_s_text=0x7f06001f;
+        public static final int end_s=0x7f060023;
+        public static final int end_s_text=0x7f060022;
         public static final int end_text=0x7f060001;
         public static final int is_completed=0x7f060007;
         public static final int list_item_IM_done=0x7f060005;
@@ -215,12 +215,12 @@ public final class R {
         public static final int pomodoro_timer_B_start_pomodoro=0x7f060010;
         public static final int pomodoro_timer_TV_pomodoro_clock=0x7f060013;
         public static final int pomodoros=0x7f060003;
-        public static final int pomodoros_comp_me=0x7f060026;
-        public static final int pomodoros_comp_me_text=0x7f060024;
-        public static final int pomodoros_comp_tot=0x7f060025;
-        public static final int pomodoros_comp_tot_text=0x7f060023;
-        public static final int pomodoros_s=0x7f060022;
-        public static final int pomodoros_s_text=0x7f060021;
+        public static final int pomodoros_comp_me=0x7f060029;
+        public static final int pomodoros_comp_me_text=0x7f060027;
+        public static final int pomodoros_comp_tot=0x7f060028;
+        public static final int pomodoros_comp_tot_text=0x7f060026;
+        public static final int pomodoros_s=0x7f060025;
+        public static final int pomodoros_s_text=0x7f060024;
         public static final int separator=0x7f060006;
         public static final int separator2=0x7f06001a;
         public static final int sign_up_B_sign_up=0x7f06001c;
@@ -228,10 +228,15 @@ public final class R {
         public static final int sign_up_ET_password=0x7f060019;
         public static final int sign_up_ET_username=0x7f060018;
         public static final int single_task=0x7f06001d;
-        public static final int single_task_TV_shared=0x7f060028;
-        public static final int single_task_TV_shared_text=0x7f060027;
+        public static final int single_task_B_long_break=0x7f06002f;
+        public static final int single_task_B_remove=0x7f060020;
+        public static final int single_task_B_short_break=0x7f06002e;
+        public static final int single_task_B_start_pomodoro=0x7f06002d;
+        public static final int single_task_TV_pomodoro_clock=0x7f060030;
+        public static final int single_task_TV_shared=0x7f06002b;
+        public static final int single_task_TV_shared_text=0x7f06002a;
         public static final int task_name=0x7f060000;
-        public static final int task_name_s=0x7f06001e;
+        public static final int task_name_s=0x7f060021;
         public static final int username=0x7f060014;
     }
     public static final class layout {
@@ -263,10 +268,10 @@ public final class R {
         public static final int pomodoro_timer_B_long=0x7f05001f;
         public static final int pomodoro_timer_B_pomodoro_time=0x7f050021;
         public static final int pomodoro_timer_B_short=0x7f050020;
-        public static final int pomodoro_timer_TV_clock=0x7f05001e;
         public static final int pomodoros_own=0x7f050014;
         public static final int pomodoros_tot=0x7f050015;
         public static final int preference_key_file=0x7f050001;
+        public static final int remove_task=0x7f050022;
         public static final int set_done=0x7f050010;
         public static final int set_pomodoro=0x7f05000f;
         public static final int shared=0x7f050012;
@@ -278,6 +283,9 @@ public final class R {
         public static final int task_name=0x7f050003;
         public static final int task_pomodoros=0x7f050005;
         public static final int tasks=0x7f050002;
+        public static final int time_long_break=0x7f050023;
+        public static final int time_pomodoro=0x7f05001e;
+        public static final int time_short_break=0x7f050024;
         public static final int username=0x7f050019;
     }
 }
