@@ -5,11 +5,13 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import org.apache.http.NameValuePair;
@@ -117,23 +119,28 @@ public class SingleTask extends Activity {
     }
 
     public void startPomodoro(View view) {
-        long time = 1000 * 5;
+        long time = 1000 * 7;
+        toggleButtonsClickable(false);
         startTimer(time, Constants.TIME_POMODORO);
     }
 
     public void startLongBreak(View view) {
         long time = 1000 * 60 * 10;
+        toggleButtonsClickable(false);
+
         startTimer(time, Constants.TIME_LONG);
     }
 
     public void startShortBreak(View view) {
 
         long time = 1000 * 60 * 5;
+        toggleButtonsClickable(false);
+
         startTimer(time, Constants.TIME_SHORT);
     }
 
     public void startTimer(long time, final String type) {
-
+        final MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.blackberry_gentle);
         final long millisGoal = System.currentTimeMillis() + time;
         final TextView timer = (TextView) findViewById(R.id.single_task_TV_pomodoro_clock);
         Handler timerHandler = new Handler();
@@ -142,8 +149,12 @@ public class SingleTask extends Activity {
             @Override
             public void run() {
                 long millis = millisGoal - System.currentTimeMillis();
+                if (millis <= 5000 && !mp.isPlaying()) {
+                    mp.start();
+                }
                 if (millis <= 0) {
                     if (type.equals(Constants.TIME_POMODORO)) {
+                        mp.stop();
                         registerPomodoro(null);
                     }
                     return;
@@ -236,5 +247,15 @@ public class SingleTask extends Activity {
             }
         }
 
+    }
+
+
+    public void toggleButtonsClickable(boolean clickable) {
+        Button pomodoro = (Button) findViewById(R.id.single_task_B_start_pomodoro);
+        Button shortTime = (Button) findViewById(R.id.single_task_B_short_break);
+        Button longTime = (Button) findViewById(R.id.single_task_B_long_break);
+        pomodoro.setClickable(clickable);
+        shortTime.setClickable(clickable);
+        longTime.setClickable(clickable);
     }
 }
