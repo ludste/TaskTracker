@@ -36,7 +36,8 @@ public class ListTasks extends ListActivity{
 		super.onCreate(savedInstanceState);
 		userID = getSharedPreferences(getString(R.string.preference_key_file), 0).getInt(Constants.USER_ID, -1);
 		if(userID ==-1){
-			System.err.println("Userid not found");//TODO intent to signin page
+			Intent signin = new Intent(this, MyActivity.class);
+			startActivity(signin);
 		}
         setContentView(R.layout.list_tasks);
         allTasks = new ArrayList<HashMap<String, String>>();
@@ -119,7 +120,7 @@ private class GetTasks extends AsyncTask<Integer, Void, String>{
 					
 					allTasks.add(task);
 				}
-				Collections.sort(allTasks, new SortTasks());
+//				Collections.sort(allTasks, new SortTasks());
 			}
 			System.err.println("All tasks added");
 		} catch (Exception e) {

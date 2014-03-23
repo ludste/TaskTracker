@@ -25,7 +25,6 @@ public class MyActivity extends Activity {
 //	TextView resultView;
 //	ArrayList<Task> allTasks = new ArrayList<Task>();
 
-    @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

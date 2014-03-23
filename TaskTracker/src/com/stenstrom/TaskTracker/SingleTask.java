@@ -28,10 +28,12 @@ public class SingleTask extends Activity {
 	HashMap<String, String> contactMap;
 	String collaborators;
 	int userID;
+
 	@Override
 	protected void onCreate(android.os.Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		userID= getSharedPreferences(getString(R.string.preference_key_file), 0).getInt(Constants.USER_ID, -1);
+		userID = getSharedPreferences(getString(R.string.preference_key_file), 0).getInt(
+				Constants.USER_ID, -1);
 		try {
 
 			setContentView(R.layout.single_task);
@@ -44,8 +46,7 @@ public class SingleTask extends Activity {
 			String completedByMe;
 			Bundle extras = getIntent().getExtras();
 			if (extras != null) {
-				contactMap = (HashMap<String, String>) extras
-						.get(Constants.CONTACT_MAP);
+				contactMap = (HashMap<String, String>) extras.get(Constants.CONTACT_MAP);
 				taskName = contactMap.get(Constants.TASK_NAME);// extras.getString(Constants.TASK_NAME);
 				endTime = contactMap.get(Constants.END_TIME);
 				pomodoros = contactMap.get(Constants.NUM_OF_POMODOROS);
@@ -74,15 +75,17 @@ public class SingleTask extends Activity {
 				if (isCollab.equals("1")) {
 					ImageView i = (ImageView) findViewById(R.id.collab_image);
 					i.setImageResource(R.drawable.shared_icon);
-					// LinearLayout singleView =
-					// (LinearLayout)findViewById(R.id.single_task);
-					// singleView.addView(i);
-					SetWithDB dbConn = new SetWithDB(Constants.getCollab,contactMap.get(Constants.TASK_ID_DB),null);
+					
+					String taskID = contactMap.get(Constants.TASK_ID_DB);
+					SetWithDB dbConn = new SetWithDB(Constants.getCollab, taskID, null);
 					dbConn.execute().get();
-					
-					TextView t = new TextView(this); 
-					 t.setText("these are the collaborators: " + collaborators);
-					
+					TextView collab = (TextView) findViewById(R.id.single_task_TV_shared);
+					collab.setText(getString(R.string.collaborators) + " " + collaborators);
+//					TextView t = new TextView(this);
+//					t.setText("these are the collaborators: " + collaborators);
+//					LinearLayout singleView = (LinearLayout) findViewById(R.id.single_task);
+//					singleView.addView(t);
+
 				}
 
 			}
@@ -95,15 +98,17 @@ public class SingleTask extends Activity {
 	}
 
 	public void registerPomodoro(View view) {
-		SetWithDB dbConn = new SetWithDB(Constants.updatePomodoro,contactMap.get(Constants.TASK_ID_DB),Integer.toString(userID));
+		SetWithDB dbConn = new SetWithDB(Constants.updatePomodoro,
+				contactMap.get(Constants.TASK_ID_DB), Integer.toString(userID));
 		dbConn.execute();
 		Intent intent = new Intent(SingleTask.this, ListTasks.class);
 		startActivity(intent);
-		
+
 	}
 
 	public void setDone(View view) {
-		SetWithDB dbConn = new SetWithDB(Constants.setDone,contactMap.get(Constants.TASK_ID_DB),Integer.toString(userID));
+		SetWithDB dbConn = new SetWithDB(Constants.setDone, contactMap.get(Constants.TASK_ID_DB),
+				Integer.toString(userID));
 		dbConn.execute();
 		Intent intent = new Intent(SingleTask.this, ListTasks.class);
 		startActivity(intent);
@@ -127,49 +132,48 @@ public class SingleTask extends Activity {
 		protected Boolean doInBackground(Void... params) {
 			ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 			nameValuePairs.add(new BasicNameValuePair(Constants.METHOD, method));
-			nameValuePairs.add(new BasicNameValuePair(Constants.TASK_ID_DB,taskID));
+			nameValuePairs.add(new BasicNameValuePair(Constants.TASK_ID_DB, taskID));
 			nameValuePairs.add(new BasicNameValuePair(Constants.USER_ID_DB, userID));
 			ServiceHandler serviceHandler = new ServiceHandler();
-			String jsonStr = serviceHandler.makeServiceCall(url, ServiceHandler.GET, nameValuePairs);
-			if(method.equals(Constants.getCollab)){
-				try{
+			String jsonStr = serviceHandler
+					.makeServiceCall(url, ServiceHandler.GET, nameValuePairs);
+			if (method.equals(Constants.getCollab)) {
+				try {
 					JSONObject all = new JSONObject(jsonStr);
 					collaborators = all.getString("data");
-					
+
 				}
-				catch(Exception e){
+				catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-			if (jsonStr.contains("true"))
+			if (jsonStr.contains(method))
 				return true;
 			return false;
 
 		}
 
 		protected void onPostExecute(Boolean result) {
-			if (result) {
-				new AlertDialog.Builder(SingleTask.this)
-				.setMessage(
-						"It has now been updated")
-				.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
+			if (!method.equals(Constants.getCollab)) {
+				if (result) {
+					new AlertDialog.Builder(SingleTask.this).setMessage("It has now been updated")
+							.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int which) {
 
-					}
-				}).show();
-			}
-			else{
-				System.err.println("Show warning dialog");
-				new AlertDialog.Builder(SingleTask.this)
-						.setMessage(
-								"Error in connection with database, please try again")
-						.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int which) {
+								}
+							}).show();
+				}
+				else {
+					System.err.println("Show warning dialog");
+					new AlertDialog.Builder(SingleTask.this)
+							.setMessage("Error in connection with database, please try again")
+							.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int which) {
 
-							}
-						}).show();
+								}
+							}).show();
+				}
 			}
-			
 		}
 
 	}

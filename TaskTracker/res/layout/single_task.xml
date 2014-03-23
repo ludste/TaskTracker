@@ -3,7 +3,8 @@
     android:id="@+id/single_task"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@color/White" >
 
     <TextView
         android:id="@+id/task_name_s"
@@ -89,6 +90,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/shared" />
+    
+        <TextView
+        android:id="@+id/single_task_TV_shared"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:textColor="#5d5d5d"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/button_set_pomodoro"

@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@color/background" >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,16 +24,9 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:onClick="sendMessage"
-            android:text="@string/new_task" />
-
-        <Button
-            android:id="@+id/button_new_task"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/button_new_task"
-            android:onClick="sendMessage"
-            android:text="@string/new_task" />
+            android:text="@string/new_task"
+            android:textColor="@color/button_color"
+            android:background="@color/button_background" />
 
         <Button
             android:id="@+id/list_tasks_B_signout"
@@ -41,7 +35,9 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:onClick="signOut"
-            android:text="@string/sign_out" />
+            android:text="@string/sign_out"
+            android:textColor="@color/button_color"
+            android:background="@color/button_background" />
 
     </RelativeLayout>
 

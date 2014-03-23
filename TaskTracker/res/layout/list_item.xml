@@ -5,7 +5,8 @@
     android:orientation="vertical"
     android:padding="10dp"
     android:paddingLeft="10dp"
-    android:paddingRight="10dp" >
+    android:paddingRight="10dp"
+    android:background="@color/White" >
  
     <TextView
         android:id="@+id/task_name"
@@ -53,40 +54,36 @@
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/pomodoros_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:gravity="left"
-            android:text="@string/task_pomodoros"
-            android:textColor="#5d5d5d"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/pomodoros_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignRight="@+id/pomodoros_text"
-            android:layout_below="@+id/pomodoros_text"
-            android:gravity="left"
-            android:text="@string/task_pomodoros"
-            android:textColor="#5d5d5d"
-            android:textStyle="bold" />
-
-        <TextView
             android:id="@+id/pomodoros"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/pomodoros_text"
             android:gravity="left"
             android:text="@string/task_pomodoros"
             android:textColor="#5d5d5d"
             android:textStyle="bold" />
 
-    </RelativeLayout>
+        <ProgressBar
+            android:id="@+id/list_item_progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="212dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:max="20"
+            android:progress="10" />
 
+<!--         <ImageView -->
+<!--             android:id="@+id/list_item_IM_done" -->
+<!--             android:layout_width="wrap_content" -->
+<!--             android:layout_height="wrap_content" -->
+<!--             android:layout_alignParentRight="true" -->
+<!--             android:layout_alignParentTop="true" -->
+<!--             android:contentDescription="@string/pomodoros_tot" -->
+<!--             android:src="@drawable/shared_icon" -->
+<!--             android:visibility="gone" /> -->
+
+    </RelativeLayout>
  
 </LinearLayout>
