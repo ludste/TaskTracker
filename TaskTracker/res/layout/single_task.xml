@@ -98,24 +98,34 @@
                 android:paddingBottom="2dip"
                 android:text="@string/task_end"
                 android:textColor="@color/header2"/>
+
         <View
                 android:layout_width="fill_parent"
                 android:layout_height="0.2dp"
-                android:id="@+id/separator"
+                android:id="@+id/single_task_separator"
                 android:visibility="visible"
                 android:layout_below="@+id/end_s"
                 android:background="@android:color/black"/>
-
+		<TextView
+                android:id="@+id/pomodoros_s_text_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/single_task_separator"
+                android:gravity="left"
+                android:text="@string/set_pomodoro"
+                android:textColor="@color/header2"
+                android:textStyle="bold"/>
         <TextView
                 android:id="@+id/pomodoros_s_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@+id/end_s_text"
+                android:layout_below="@+id/pomodoros_s_text_header"
                 android:gravity="left"
-                android:text="@string/task_pomodoros"
+                android:text="@string/pomodoros_tot"
                 android:textColor="@color/header2"
-                android:textStyle="bold"/>
+                />
 
         <TextView
                 android:id="@+id/pomodoros_s"
@@ -126,24 +136,26 @@
                 android:gravity="left"
                 android:text="@string/task_pomodoros"
                 android:textColor="@color/text"
-                android:textStyle="bold"/>
+                />
 
         <TextView
                 android:id="@+id/pomodoros_comp_tot_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/pomodoros_s_text_header"
                 android:layout_above="@+id/pomodoros_s"
                 android:layout_marginLeft="33dp"
                 android:layout_toRightOf="@+id/pomodoros_s_text"
                 android:gravity="left"
-                android:text="@string/pomodoros_tot"
+                android:text="@string/pomodoros_done"
                 android:textColor="@color/header2"
-                android:textStyle="bold"/>
+                />
 
         <TextView
                 android:id="@+id/pomodoros_comp_me_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/pomodoros_s_text_header"
                 android:layout_alignBaseline="@+id/pomodoros_comp_tot_text"
                 android:layout_alignBottom="@+id/pomodoros_comp_tot_text"
                 android:layout_alignParentRight="true"
@@ -151,7 +163,7 @@
                 android:gravity="left"
                 android:text="@string/pomodoros_own"
                 android:textColor="@color/header2"
-                android:textStyle="bold"/>
+                />
 
         <TextView
                 android:id="@+id/pomodoros_comp_tot"
@@ -161,7 +173,7 @@
                 android:layout_below="@+id/pomodoros_comp_tot_text"
                 android:gravity="left"
                 android:textColor="@color/text"
-                android:textStyle="bold"
+                
                 android:text="@string/pomodoros_tot"/>
 
         <TextView
@@ -172,7 +184,7 @@
                 android:layout_below="@+id/pomodoros_comp_me_text"
                 android:gravity="left"
                 android:textColor="@color/text"
-                android:textStyle="bold"
+               
                 android:text="@string/pomodoros_own"/>
 
         <View
@@ -201,7 +213,6 @@
                 android:layout_below="@+id/single_task_TV_shared_text"
                 android:gravity="left"
                 android:textColor="@color/text"
-                android:textStyle="bold"
                 android:visibility="gone"
                 android:text="@string/collaborators"/>
 
