@@ -285,6 +285,7 @@ public final class R {
         public static final int sign_out=0x7f060008;
         public static final int sign_up=0x7f060006;
         public static final int signup_error=0x7f060019;
+        public static final int sttop_timer=0x7f060026;
         public static final int task_end=0x7f060004;
         public static final int task_name=0x7f060003;
         public static final int task_pomodoros=0x7f060005;

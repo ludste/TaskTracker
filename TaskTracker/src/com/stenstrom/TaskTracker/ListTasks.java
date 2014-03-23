@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -33,7 +34,8 @@ import android.widget.TextView;
 public class ListTasks extends ListActivity{
 	ArrayList<HashMap<String,String>> allTasks;
 	int userID;
-	ListAdapter adapter;
+	ArrayAdapter adapter;
+	ListView listView;
 	@Override
     protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -45,7 +47,7 @@ public class ListTasks extends ListActivity{
         setContentView(R.layout.list_tasks);
         allTasks = new ArrayList<HashMap<String, String>>();
         
-        ListView listView = getListView();           
+        listView = getListView();           
         listView.setOnItemClickListener(new OnItemClickListener() {
         			
 			@Override
@@ -79,6 +81,10 @@ public class ListTasks extends ListActivity{
 		Intent intent = new Intent(this, MyActivity.class);
 		startActivity(intent);
 	}
+	public void sync(View view){
+		adapter.notifyDataSetInvalidated();
+		new GetTasks().execute(userID);
+	}
 
 
 private class GetTasks extends AsyncTask<Integer, Void, String>{
@@ -97,6 +103,7 @@ private class GetTasks extends AsyncTask<Integer, Void, String>{
 	@Override
 	protected String doInBackground(Integer... arg0) {
 		int userID = arg0[0];
+		System.out.println("Do in back");
 		ServiceHandler serviceHandler = new ServiceHandler();
 		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		nameValuePairs.add(new BasicNameValuePair(Constants.METHOD, Constants.getTasks));
