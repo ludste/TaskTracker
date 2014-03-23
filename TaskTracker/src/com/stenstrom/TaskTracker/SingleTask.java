@@ -25,10 +25,13 @@ public class SingleTask extends Activity {
     HashMap<String, String> contactMap;
     String collaborators;
     int userID;
+    Handler timerHandler;
+    Runnable timerRunnable;
 
     @Override
     protected void onCreate(android.os.Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        timerHandler = new Handler();
         userID = getSharedPreferences(getString(R.string.preference_key_file), 0).getInt(
                 Constants.USER_ID, -1);
         try {
@@ -119,32 +122,30 @@ public class SingleTask extends Activity {
     }
 
     public void startPomodoro(View view) {
-        long time = 1000 * 7;
+        long time = 1000 * 60 * 25;
         toggleButtonsClickable(false);
-        startTimer(time, Constants.TIME_POMODORO);
+        timerHandler(time, Constants.TIME_POMODORO);
     }
 
     public void startLongBreak(View view) {
         long time = 1000 * 60 * 10;
         toggleButtonsClickable(false);
-
-        startTimer(time, Constants.TIME_LONG);
+        timerHandler(time, Constants.TIME_LONG);
     }
+
 
     public void startShortBreak(View view) {
 
         long time = 1000 * 60 * 5;
         toggleButtonsClickable(false);
-
-        startTimer(time, Constants.TIME_SHORT);
+        timerHandler(time, Constants.TIME_SHORT);
     }
 
-    public void startTimer(long time, final String type) {
+    public void timerHandler(long time, final String type) {
         final MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.blackberry_gentle);
         final long millisGoal = System.currentTimeMillis() + time;
         final TextView timer = (TextView) findViewById(R.id.single_task_TV_pomodoro_clock);
-        Handler timerHandler = new Handler();
-        Runnable timerRunnable = new Runnable() {
+        timerRunnable = new Runnable() {
 
             @Override
             public void run() {
