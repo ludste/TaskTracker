@@ -79,13 +79,20 @@ public class MyActivity extends Activity {
         EditText editUsername = (EditText) findViewById(R.id.sign_up_ET_username);
         EditText editPass = (EditText) findViewById(R.id.sign_up_ET_password);
         EditText editEmail = (EditText) findViewById(R.id.sign_up_ET_email);
-
         String username = editUsername.getText().toString();
         String password = editPass.getText().toString();
         String email = editEmail.getText().toString();
+        if (!checkValidEmailFormat(email)) {
+            editEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.delete, 0);
+            TextView signUpText = (TextView) findViewById(R.id.sign_up_TV_text);
+            signUpText.setText(R.string.invalidEmailFormat);
+            return;
+        }
+
         boolean userUnique = checkUniqueUser(username);
         boolean emailUnique = checkUniqueEmail(email);
         if (!userUnique || !emailUnique) {
+            System.out.println(!userUnique || !emailUnique);
             if (!userUnique) {
                 editUsername.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.delete, 0);
             } else {
@@ -100,6 +107,7 @@ public class MyActivity extends Activity {
             signUpText.setText(R.string.signup_error);
             return;
         }
+
         SignUpIn signup = new SignUpIn(username, password, email, Constants.signUp);
         boolean worked = false;
         try {
@@ -110,17 +118,21 @@ public class MyActivity extends Activity {
             e.printStackTrace();
         }
         if (worked) {
-            System.out.println("HERE");
             Editor edit = sharedPref.edit();
             edit.putInt(Constants.USER_ID, userID);
             edit.commit();
 
             System.out.println("userid :" + sharedPref.getInt(Constants.USER_ID, -1));
-            Intent intent = new Intent(getApplicationContext(), ListTasks.class);
+            Intent intent = new Intent(this, ListTasks.class);
             startActivity(intent);
         } else {
             System.err.println("did not work");
         }
+    }
+
+    private boolean checkValidEmailFormat(String email) {
+        String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        return email.matches(EMAIL_REGEX);
     }
 
     private boolean checkUniqueUser(String username) {
@@ -170,9 +182,7 @@ public class MyActivity extends Activity {
             nameValuePairs.add(new BasicNameValuePair(Constants.METHOD, method));
             nameValuePairs.add(new BasicNameValuePair(Constants.username, user));
             nameValuePairs.add(new BasicNameValuePair(Constants.password, pass));
-            if (method.equals(Constants.signUp)) {
-                nameValuePairs.add(new BasicNameValuePair(Constants.email, email));
-            }
+            nameValuePairs.add(new BasicNameValuePair(Constants.email, email));
             String jsonStr = serviceHandler.makeServiceCall(url, ServiceHandler.GET, nameValuePairs);
             System.out.println(jsonStr);
             JSONObject allResultJson;
@@ -180,11 +190,10 @@ public class MyActivity extends Activity {
                 allResultJson = new JSONObject(jsonStr);
                 String status = allResultJson.getString("status");
                 String data = allResultJson.getString("data");
-                if (status.equals(Constants.authenticate)) {
+                if (status.equals(Constants.authenticate) || status.equals(Constants.signUp)) {
                     userID = Integer.parseInt(data);
                     return userID != -1;
-                } else if (status.equals(Constants.checkUserUniqueness)
-                        || status.equals(Constants.checkMailUniqueness)) {
+                } else {
                     return Boolean.parseBoolean(data);
                 }
             } catch (JSONException e) {

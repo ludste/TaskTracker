@@ -29,6 +29,11 @@
     <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="accept">accept</string>
+    <string name="invalidEmailFormat">Enter a valid email address</string>
+    <string name="pomodoro_timer_TV_clock">Large Text</string>
+    <string name="pomodoro_timer_B_long">New Button</string>
+    <string name="pomodoro_timer_B_short">Short break</string>
+    <string name="pomodoro_timer_B_pomodoro_time">Strart pomodoro</string>
 
 
 </resources>
