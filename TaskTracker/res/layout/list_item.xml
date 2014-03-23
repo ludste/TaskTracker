@@ -83,6 +83,14 @@
             android:contentDescription="@string/pomodoros_tot"
             android:src="@drawable/accept"
             android:visibility="invisible" />
+        
+                <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.2dp"
+                android:id="@+id/separator"
+                android:visibility="visible"
+                android:layout_below="@+id/list_item_IM_done"
+                android:background="@color/gray"/>
 
     </RelativeLayout>
  

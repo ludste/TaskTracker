@@ -11,6 +11,7 @@ import org.w3c.dom.Text;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -125,6 +126,17 @@ public class SingleTask extends Activity {
 			this.userID = userID;
 		}
 
+		private ProgressDialog pDialog;
+	    @Override
+	    protected void onPreExecute() {
+	        super.onPreExecute();
+	        // Showing progress dialog
+	        pDialog = new ProgressDialog(SingleTask.this);
+	        pDialog.setMessage("Please wait...");
+	        pDialog.setCancelable(false);
+	        pDialog.show();
+
+	    }
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
@@ -151,6 +163,8 @@ public class SingleTask extends Activity {
 		}
 
 		protected void onPostExecute(Boolean result) {
+			if (pDialog.isShowing())
+                pDialog.dismiss();
 			if (!method.equals(Constants.getCollab)) {
 				if (result) {
 					new AlertDialog.Builder(SingleTask.this).setMessage("It has now been updated")

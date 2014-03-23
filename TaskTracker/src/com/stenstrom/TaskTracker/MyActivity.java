@@ -1,6 +1,8 @@
 package com.stenstrom.TaskTracker;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -66,6 +68,9 @@ public class MyActivity extends Activity {
             Intent intent = new Intent(this, ListTasks.class);
             startActivity(intent);
         } else {
+        	new AlertDialog.Builder(MyActivity.this)
+			.setMessage("Username or password is wrong")
+			.setNeutralButton("OK", null).show();
             System.err.println("did not work");
         }
     }
@@ -84,8 +89,10 @@ public class MyActivity extends Activity {
         String email = editEmail.getText().toString();
         if (!checkValidEmailFormat(email)) {
             editEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.delete, 0);
-            TextView signUpText = (TextView) findViewById(R.id.sign_up_TV_text);
-            signUpText.setText(R.string.invalidEmailFormat);
+            new AlertDialog.Builder(MyActivity.this)
+			.setMessage(getString(R.string.invalidEmailFormat))
+			.setNeutralButton("OK", null).show();
+            System.err.println("did not work");
             return;
         }
 
@@ -103,8 +110,10 @@ public class MyActivity extends Activity {
             } else {
                 editEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.accept, 0);
             }
-            TextView signUpText = (TextView) findViewById(R.id.sign_up_TV_text);
-            signUpText.setText(R.string.signup_error);
+            new AlertDialog.Builder(MyActivity.this)
+			.setMessage(getString(R.string.signup_error))
+			.setNeutralButton("OK", null).show();
+            System.err.println("did not work");
             return;
         }
 
@@ -174,6 +183,18 @@ public class MyActivity extends Activity {
             this.email = email;
             this.method = method;
         }
+        
+//    	private ProgressDialog pDialog;
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            // Showing progress dialog
+//            pDialog = new ProgressDialog(MyActivity.this);
+//            pDialog.setMessage("Please wait...");
+//            pDialog.setCancelable(false);
+//            pDialog.show();
+//
+//        }
 
         @Override
         protected Boolean doInBackground(Void... arg0) {
@@ -197,7 +218,6 @@ public class MyActivity extends Activity {
                     return Boolean.parseBoolean(data);
                 }
             } catch (JSONException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
@@ -205,6 +225,9 @@ public class MyActivity extends Activity {
         }
 
         protected Boolean onPostExecute(boolean worked) {
+        	super.onPostExecute(worked);
+        	System.out.println("On post execute");
+//            pDialog.dismiss();
             return worked;
         }
     }

@@ -11,8 +11,11 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
@@ -41,10 +44,8 @@ public class ListTasks extends ListActivity{
 		}
         setContentView(R.layout.list_tasks);
         allTasks = new ArrayList<HashMap<String, String>>();
-        ListView listView = getListView();
         
-       
-        
+        ListView listView = getListView();           
         listView.setOnItemClickListener(new OnItemClickListener() {
         			
 			@Override
@@ -82,7 +83,17 @@ public class ListTasks extends ListActivity{
 
 private class GetTasks extends AsyncTask<Integer, Void, String>{
 	String url = "http://ludste.synology.me/TaskTracker/index.php";
-	
+	private ProgressDialog pDialog;
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        // Showing progress dialog
+        pDialog = new ProgressDialog(ListTasks.this);
+        pDialog.setMessage("Please wait...");
+        pDialog.setCancelable(false);
+        pDialog.show();
+
+    }
 	@Override
 	protected String doInBackground(Integer... arg0) {
 		int userID = arg0[0];
@@ -131,6 +142,8 @@ private class GetTasks extends AsyncTask<Integer, Void, String>{
 	}
 	
 	protected void onPostExecute(String jsonStr){
+		if (pDialog.isShowing())
+            pDialog.dismiss();
 		String statusCode;
 		try {
 			JSONObject allResultJson = new JSONObject(jsonStr);
@@ -148,6 +161,13 @@ private class GetTasks extends AsyncTask<Integer, Void, String>{
 //				R.id.task_name, R.id.end, R.id.pomodoros, R.id.is_completed	
 //			});
 			setListAdapter(adapter);
+			}else{
+				new AlertDialog.Builder(ListTasks.this).setMessage("Could not load tasks")
+				.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+
+					}
+				}).show();
 			}
 		}
 		catch(Exception e){

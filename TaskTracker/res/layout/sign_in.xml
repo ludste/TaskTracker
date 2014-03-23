@@ -2,36 +2,78 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:background="@color/background"
+    android:orientation="vertical"
+    android:padding="20dp" >
+
     <EditText
         android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/background"
         android:ems="10"
-        android:hint="@string/username" />
+        android:hint="@string/username"
+        android:maxLength="20"
+        android:textColor="@color/header2"
+        android:textSize="30sp" />
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="fill_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/gray"
+        android:visibility="visible" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/background"
         android:ems="10"
+        android:hint="@string/password"
         android:inputType="textPassword"
-        android:hint="@string/password" >
+        android:maxLength="20"
+        android:textColor="@color/header2"
+        android:textSize="30sp" >
 
         <requestFocus />
     </EditText>
-    
-<Button
-        android:id="@+id/button_sing_in"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="signIn"
-        android:text="@string/sign_in" />
-<Button
-        android:id="@+id/button_sing_up_instead"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="signUpPage"
-        android:text="@string/sign_up" />
+        android:baselineAligned="false"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/button_sing_in"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/button_background"
+                android:onClick="signIn"
+                android:text="@string/sign_in"
+                android:textColor="@color/button_color" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/button_sing_up_instead"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/button_background"
+                android:onClick="signUpPage"
+                android:text="@string/sign_up"
+                android:textColor="@color/button_color" />
+        </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>
