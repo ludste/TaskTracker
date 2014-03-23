@@ -4,100 +4,163 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/White" >
+    android:background="@color/White"
+    android:padding="20dp" >
 
-    <TextView
-        android:id="@+id/task_name_s"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="2dip"
-        android:paddingTop="6dip"
-        android:text="@string/task_name"
-        android:textColor="#43bd00"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp" >
 
-    <TextView
-        android:id="@+id/end_s_text"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="2dip"
-        android:text="@string/task_end"
-        android:textColor="#acacac" />
-
-    <TextView
-        android:id="@+id/end_s"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="2dip"
-        android:text="@string/task_end"
-        android:textColor="#acacac" />
-
-    <TextView
-        android:id="@+id/pomodoros_s_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:text="@string/task_pomodoros"
-        android:textColor="#5d5d5d"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/pomodoros_s"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:text="@string/task_pomodoros"
-        android:textColor="#5d5d5d"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/pomodoros_comp_tot_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:text="@string/pomodoros_tot"
-        android:textColor="#5d5d5d"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/pomodoros_comp_tot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:textColor="#5d5d5d"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/pomodoros_comp_me_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:text="@string/pomodoros_own"
-        android:textColor="#5d5d5d"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/pomodoros_comp_me"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:textColor="#5d5d5d"
-        android:textStyle="bold" />
-
-    <ImageView
-        android:id="@+id/collab_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/shared" />
-    
         <TextView
-        android:id="@+id/single_task_TV_shared"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:textColor="#5d5d5d"
-        android:textStyle="bold" />
+            android:id="@+id/task_name_s"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:paddingBottom="2dip"
+            android:paddingTop="6dip"
+            android:text="@string/task_name"
+            android:textColor="@color/header1"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/end_s_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/task_name_s"
+            android:paddingBottom="2dip"
+            android:text="@string/task_end"
+            android:textColor="@color/header2" />
+
+        <TextView
+            android:id="@+id/end_s"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/end_s_text"
+            android:layout_alignBottom="@+id/end_s_text"
+            android:layout_marginLeft="18dp"
+            android:layout_toRightOf="@+id/end_s_text"
+            android:paddingBottom="2dip"
+            android:text="@string/task_end"
+            android:textColor="@color/header2" />
+        <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.2dp"
+                android:id="@+id/separator"
+                android:visibility="visible"
+                android:layout_below="@+id/end_s"
+                android:background="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/pomodoros_s_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/end_s_text"
+            android:gravity="left"
+            android:text="@string/task_pomodoros"
+            android:textColor="@color/header2"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/pomodoros_s"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/pomodoros_s_text"
+            android:gravity="left"
+            android:text="@string/task_pomodoros"
+            android:textColor="@color/text"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/pomodoros_comp_tot_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/pomodoros_s"
+            android:layout_marginLeft="33dp"
+            android:layout_toRightOf="@+id/pomodoros_s_text"
+            android:gravity="left"
+            android:text="@string/pomodoros_tot"
+            android:textColor="@color/header2"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/pomodoros_comp_me_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/pomodoros_comp_tot_text"
+            android:layout_alignBottom="@+id/pomodoros_comp_tot_text"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="67dp"
+            android:gravity="left"
+            android:text="@string/pomodoros_own"
+            android:textColor="@color/header2"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/pomodoros_comp_tot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/pomodoros_comp_tot_text"
+            android:layout_below="@+id/pomodoros_comp_tot_text"
+            android:gravity="left"
+            android:textColor="@color/text"
+            android:textStyle="bold"
+            android:text="@string/pomodoros_tot" />
+
+        <TextView
+            android:id="@+id/pomodoros_comp_me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/pomodoros_comp_me_text"
+            android:layout_below="@+id/pomodoros_comp_me_text"
+            android:gravity="left"
+            android:textColor="@color/text"
+            android:textStyle="bold"
+            android:text="@string/pomodoros_own" />
+
+        <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.2dp"
+                android:id="@+id/separator"
+                android:visibility="visible"
+                android:layout_below="@+id/pomodoros_s"
+                android:background="@android:color/black"/>
+         <TextView
+            android:id="@+id/single_task_TV_shared_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/pomodoros_s"
+            android:text="@string/collaborators"
+            android:visibility="gone" />
+<!--              -->
+            
+        <TextView
+            android:id="@+id/single_task_TV_shared"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/single_task_TV_shared_text"
+            android:gravity="left"
+            android:textColor="@color/text"
+            android:textStyle="bold"
+            android:visibility="gone"
+            android:text="@string/collaborators"/>
+<!--             android:visibility="gone"  -->
+
+        <ImageView
+            android:id="@+id/collab_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/shared" />
+
+    </RelativeLayout>
 
     <Button
         android:id="@+id/button_set_pomodoro"

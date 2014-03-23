@@ -65,22 +65,20 @@ public class SingleTask extends Activity {
 				nameView.setText(taskName);
 				endView.setText(endTime);
 				pomView.setText(pomodoros);
-				if (!completedPom.equals("0")) {
 					completedView.setText(completedPom);
 					completedByMeView.setText(completedByMe);
-				}
-				else {
-					completedView.setText(R.string.no_pom_done);
-				}
 				if (isCollab.equals("1")) {
 					ImageView i = (ImageView) findViewById(R.id.collab_image);
 					i.setImageResource(R.drawable.shared_icon);
+					i.setVisibility(View.VISIBLE);
 					
 					String taskID = contactMap.get(Constants.TASK_ID_DB);
 					SetWithDB dbConn = new SetWithDB(Constants.getCollab, taskID, null);
 					dbConn.execute().get();
+					((TextView) findViewById(R.id.single_task_TV_shared_text)).setVisibility(View.VISIBLE);
 					TextView collab = (TextView) findViewById(R.id.single_task_TV_shared);
-					collab.setText(getString(R.string.collaborators) + " " + collaborators);
+					collab.setText(collaborators);
+					collab.setVisibility(View.VISIBLE);
 //					TextView t = new TextView(this);
 //					t.setText("these are the collaborators: " + collaborators);
 //					LinearLayout singleView = (LinearLayout) findViewById(R.id.single_task);

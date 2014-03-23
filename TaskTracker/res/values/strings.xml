@@ -20,8 +20,8 @@
     <string name="no_pom_done">You have done no pomodoros yet</string>
     <string name="shared">Shared</string>
     <string name="choose_collab">Choose collaborator(optional)</string>
-    <string name="pomodoros_own">Pomodoros done by you</string>
-    <string name="pomodoros_tot">Pomodoros done in total</string>
+    <string name="pomodoros_own">You</string>
+    <string name="pomodoros_tot">Total</string>
     <string name="done_date">Done</string>
     <string name="collaborators">Collaborators</string>
     <string name="signup_error">Error: Your username or email already exist, pleas specify another:</string>

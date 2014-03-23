@@ -63,7 +63,7 @@ public class MyActivity extends Activity {
             edit.commit();
 
             System.out.println("userid :" + sharedPref.getInt(Constants.USER_ID, -1));
-            Intent intent = new Intent(getApplicationContext(), ListTasks.class);
+            Intent intent = new Intent(this, ListTasks.class);
             startActivity(intent);
         } else {
             System.err.println("did not work");

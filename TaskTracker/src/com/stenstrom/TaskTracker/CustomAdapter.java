@@ -6,6 +6,8 @@ import java.util.HashMap;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff.Mode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,24 +37,29 @@ public class CustomAdapter extends ArrayAdapter<HashMap<String, String>>{
 		 TextView taskNameView = (TextView) convertView.findViewById(R.id.task_name);
 		 TextView endDateView = (TextView) convertView.findViewById(R.id.end);
 		 TextView PomView = (TextView) convertView.findViewById(R.id.pomodoros);
-//		 ProgressBar progressView = (ProgressBar) convertView.findViewById(R.id.list_item_progressBar);
-//		 ImageView iconDone = (ImageView) convertView.findViewById(R.id.list_item_IM_done);
+		 ProgressBar progressView = (ProgressBar) convertView.findViewById(R.id.list_item_progressBar);
+		 ImageView iconDone = (ImageView) convertView.findViewById(R.id.list_item_IM_done);
 		 
-//		 String pom = task.get(Constants.NUM_OF_POMODOROS);
-//		 String comp = task.get(Constants.NUM_COMPLETED_POMODOROS);
-//		 System.out.println("pom and comp " + pom + " " + comp);
-//		 progressView.setMax(Integer.parseInt(pom));
-//		 progressView.setProgress(Integer.parseInt(comp));
+		 String pom = task.get(Constants.NUM_OF_POMODOROS);
+		 String comp = task.get(Constants.NUM_COMPLETED_POMODOROS);
+		 
+		 progressView.setMax(Integer.parseInt(pom));
+		 progressView.setProgress(Integer.parseInt(comp));
+		 progressView.getProgressDrawable().setColorFilter(convertView.getResources().getColor(R.color.progress_bar
+				 ), Mode.SRC_IN);
 		 
 		 taskNameView.setText(task.get(Constants.TASK_NAME));
 		 endDateView.setText(task.get(Constants.END_TIME));
-		 PomView.setText(task.get(Constants.NUM_OF_POMODOROS));
-//		 if(isCompleted.equals("1")){
-//			 iconDone.setVisibility(View.VISIBLE);
-//			 convertView.setBackgroundColor(Color.GRAY);
-//			 endDateView.setText(task.get(Constants.COMPLETED_WHOLE_TASK_DATE));
-//			 ((TextView) convertView.findViewById(R.id.end_text)).setText(R.string.done_date);
-//		 }
+		 PomView.setText(comp + "/" + pom);
+		 if(isCompleted.equals("1")){
+			 taskNameView.setPaintFlags(taskNameView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+			 iconDone.setVisibility(View.VISIBLE);
+			 PomView.setVisibility(View.GONE);
+			 taskNameView.setTextColor(convertView.getResources().getColor(R.color.header1_done));
+			 convertView.setBackgroundColor(convertView.getResources().getColor(R.color.task_background_done));
+			 endDateView.setText(task.get(Constants.COMPLETED_WHOLE_TASK_DATE));
+			 ((TextView) convertView.findViewById(R.id.end_text)).setText(R.string.done_date);
+		 }
 		}catch(Exception e){
 			e.printStackTrace();
 		}
