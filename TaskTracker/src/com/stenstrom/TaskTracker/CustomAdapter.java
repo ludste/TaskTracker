@@ -22,7 +22,7 @@ public class CustomAdapter extends ArrayAdapter<HashMap<String, String>>{
 	public CustomAdapter(Context context, ArrayList<HashMap<String, String>> objects) {
 		super(context, R.layout.list_item, objects);
 		this.objects=objects;
-//		this.sort(null);
+		this.sort(null);
 	}
 	
 	@Override
@@ -50,7 +50,9 @@ public class CustomAdapter extends ArrayAdapter<HashMap<String, String>>{
 		 
 		 taskNameView.setText(task.get(Constants.TASK_NAME));
 		 endDateView.setText(task.get(Constants.END_TIME));
+		 endDateView.setTextColor(convertView.getResources().getColor(R.color.header1));
 		 PomView.setText(comp + "/" + pom);
+		 System.out.println("Completed: " + position + "name " + task.get(Constants.TASK_NAME) + " says " + isCompleted);
 		 if(isCompleted.equals("1")){
 			 taskNameView.setPaintFlags(taskNameView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 			 iconDone.setVisibility(View.VISIBLE);
