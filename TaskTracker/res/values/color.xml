@@ -5,9 +5,9 @@
    <color name="header2">#808080</color>
    <color name="header3">#000000</color>
    <color name="text">#000000</color>
-   <color name="background">#FFFFFF</color>
+   <color name="background">#FBFBFB</color>
    <color name="button_background">#800080</color>
-	 <color name="task_background">#FFFFFF</color>
+	 <color name="task_background">#FBFBFB</color>
 	  <color name="task_background_done">#E0E0CF</color>
 	 <color name="progress_bar">#800080</color> 
    <color name="opaque_red">#f00</color>
