@@ -95,6 +95,14 @@ public class MyActivity extends Activity {
             System.err.println("did not work");
             return;
         }
+        if (!(password.length() > 3)) {
+            editPass.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.delete, 0);
+            new AlertDialog.Builder(MyActivity.this)
+			.setMessage(getString(R.string.shortPassword))
+			.setNeutralButton("OK", null).show();
+            System.err.println("did not work");
+            return;
+        }
 
         boolean userUnique = checkUniqueUser(username);
         boolean emailUnique = checkUniqueEmail(email);

@@ -40,6 +40,7 @@
     <string name="time_long_break">10 : 00</string>
     <string name="time_short_break">5 : 00</string>
     <string name="sttop_timer">Stop</string>
+    <string name="shortPassword">Password must be at least 3 characters</string>
 
 
 </resources>
