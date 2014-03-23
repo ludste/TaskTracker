@@ -149,7 +149,6 @@ private class GetTasks extends AsyncTask<Integer, Void, String>{
 			JSONObject allResultJson = new JSONObject(jsonStr);
 			statusCode = allResultJson.getString("status");
 			if (statusCode.equals(Constants.getTasks)) {
-			//TODO show "could not reach task database" if not ok
 			
 			adapter = new CustomAdapter(ListTasks.this, allTasks);
 //			((CustomAdapter) adapter).sort(null);

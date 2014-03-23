@@ -22,7 +22,7 @@ public class CustomAdapter extends ArrayAdapter<HashMap<String, String>>{
 	public CustomAdapter(Context context, ArrayList<HashMap<String, String>> objects) {
 		super(context, R.layout.list_item, objects);
 		this.objects=objects;
-//		this.sort(null);
+		this.sort(null);
 	}
 	
 	@Override
