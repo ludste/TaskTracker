@@ -16,7 +16,7 @@
     <string name="change_date">Set due date</string>
     <string name="completed">Completed</string>
     <string name="not_completed">Not completed</string>
-    <string name="set_pomodoro">Register pomodoro</string>
+    <string name="set_pomodoro">Pomodoro +1</string>
     <string name="set_done">Set done</string>
     <string name="no_pom_done">You have done no pomodoros yet</string>
     <string name="shared">Shared</string>
@@ -31,10 +31,13 @@
     <string name="email">Email</string>
     <string name="accept">accept</string>
     <string name="invalidEmailFormat">Enter a valid email address</string>
-    <string name="pomodoro_timer_TV_clock">Large Text</string>
-    <string name="pomodoro_timer_B_long">New Button</string>
+    <string name="time_pomodoro">25:00</string>
+    <string name="pomodoro_timer_B_long">Long break</string>
     <string name="pomodoro_timer_B_short">Short break</string>
-    <string name="pomodoro_timer_B_pomodoro_time">Strart pomodoro</string>
+    <string name="pomodoro_timer_B_pomodoro_time">Strart</string>
+    <string name="remove_task">Remove</string>
+    <string name="time_long_break">10 : 00</string>
+    <string name="time_short_break">5 : 00</string>
 
 
 </resources>

@@ -47,8 +47,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/pomodoro_timer_TV_clock"
+            android:text="@string/time_pomodoro"
             android:id="@+id/pomodoro_timer_TV_pomodoro_clock"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="0.46"/>
+            android:textSize="70sp"
+            />
 </LinearLayout>
