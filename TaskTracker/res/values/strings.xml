@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">TaskTracker</string>
     <string name="preference_key_file">com.stenstrom.TaskTracker.PREFERENCE_FILE_KEY</string>
-    
+
     <string name="tasks">My Tasks</string>
     <string name="task_name">Task</string>
     <string name="task_end">Due</string>
@@ -24,12 +24,11 @@
     <string name="pomodoros_tot">Pomodoros done in total</string>
     <string name="done_date">Done</string>
     <string name="collaborators">Collaborators</string>
-    
+    <string name="signup_error">Error: Your username or email already exist, pleas specify another:</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="email">Email</string>
-    
-    
-    
-    
+    <string name="accept">accept</string>
+
+
 </resources>

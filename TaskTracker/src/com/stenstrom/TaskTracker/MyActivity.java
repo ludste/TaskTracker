@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
@@ -71,6 +72,7 @@ public class MyActivity extends Activity {
 
     public void signUpPage(View view) {
         setContentView(R.layout.sign_up);
+
     }
 
     public void signUp(View view) {
@@ -81,7 +83,23 @@ public class MyActivity extends Activity {
         String username = editUsername.getText().toString();
         String password = editPass.getText().toString();
         String email = editEmail.getText().toString();
-
+        boolean userUnique = checkUniqueUser(username);
+        boolean emailUnique = checkUniqueEmail(email);
+        if (!userUnique || !emailUnique) {
+            if (!userUnique) {
+                editUsername.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.delete, 0);
+            } else {
+                editUsername.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.accept, 0);
+            }
+            if (!emailUnique) {
+                editEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.delete, 0);
+            } else {
+                editEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.accept, 0);
+            }
+            TextView signUpText = (TextView) findViewById(R.id.sign_up_TV_text);
+            signUpText.setText(R.string.signup_error);
+            return;
+        }
         SignUpIn signup = new SignUpIn(username, password, email, Constants.signUp);
         boolean worked = false;
         try {
@@ -92,6 +110,7 @@ public class MyActivity extends Activity {
             e.printStackTrace();
         }
         if (worked) {
+            System.out.println("HERE");
             Editor edit = sharedPref.edit();
             edit.putInt(Constants.USER_ID, userID);
             edit.commit();
@@ -102,6 +121,30 @@ public class MyActivity extends Activity {
         } else {
             System.err.println("did not work");
         }
+    }
+
+    private boolean checkUniqueUser(String username) {
+        SignUpIn signup = new SignUpIn(username, null, null, Constants.checkUserUniqueness);
+        try {
+            return signup.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private boolean checkUniqueEmail(String email) {
+        SignUpIn signup = new SignUpIn(null, null, email, Constants.checkMailUniqueness);
+        try {
+            return signup.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 
@@ -136,13 +179,13 @@ public class MyActivity extends Activity {
             try {
                 allResultJson = new JSONObject(jsonStr);
                 String status = allResultJson.getString("status");
+                String data = allResultJson.getString("data");
                 if (status.equals(Constants.authenticate)) {
-                    userID = Integer.parseInt(allResultJson.getString("data"));
-                    if (userID == -1) {
-                        return false;
-                    } else {
-                        return true;
-                    }
+                    userID = Integer.parseInt(data);
+                    return userID != -1;
+                } else if (status.equals(Constants.checkUserUniqueness)
+                        || status.equals(Constants.checkMailUniqueness)) {
+                    return Boolean.parseBoolean(data);
                 }
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
