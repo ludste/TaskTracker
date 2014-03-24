@@ -19,7 +19,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class MyActivity extends Activity {
+public class UserValidation extends Activity {
     /**
      * Called when the activity is first created.
      */
@@ -68,7 +68,7 @@ public class MyActivity extends Activity {
             Intent intent = new Intent(this, ListTasks.class);
             startActivity(intent);
         } else {
-        	new AlertDialog.Builder(MyActivity.this)
+        	new AlertDialog.Builder(UserValidation.this)
 			.setMessage("Username or password is wrong")
 			.setNeutralButton("OK", null).show();
             System.err.println("did not work");
@@ -92,7 +92,7 @@ public class MyActivity extends Activity {
         String password = editPass.getText().toString();
         String password2 = editPass2.getText().toString();
         if(!checkPassworEqual(password, password2)){
-        	new AlertDialog.Builder(MyActivity.this)
+        	new AlertDialog.Builder(UserValidation.this)
 			.setMessage(getString(R.string.invalidPasswordFormat))
 			.setNeutralButton("OK", null).show();
             System.err.println("did not work");
@@ -100,7 +100,7 @@ public class MyActivity extends Activity {
         String email = editEmail.getText().toString();
         if (!checkValidEmailFormat(email)) {
             editEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.delete, 0);
-            new AlertDialog.Builder(MyActivity.this)
+            new AlertDialog.Builder(UserValidation.this)
 			.setMessage(getString(R.string.invalidEmailFormat))
 			.setNeutralButton("OK", null).show();
             System.err.println("did not work");
@@ -108,7 +108,7 @@ public class MyActivity extends Activity {
         }
         if (!(password.length() > 3)) {
             editPass.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.delete, 0);
-            new AlertDialog.Builder(MyActivity.this)
+            new AlertDialog.Builder(UserValidation.this)
 			.setMessage(getString(R.string.shortPassword))
 			.setNeutralButton("OK", null).show();
             System.err.println("did not work");
@@ -129,7 +129,7 @@ public class MyActivity extends Activity {
             } else {
                 editEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.accept, 0);
             }
-            new AlertDialog.Builder(MyActivity.this)
+            new AlertDialog.Builder(UserValidation.this)
 			.setMessage(getString(R.string.signup_error))
 			.setNeutralButton("OK", null).show();
             System.err.println("did not work");

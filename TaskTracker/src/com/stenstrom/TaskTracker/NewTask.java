@@ -76,7 +76,7 @@ public class NewTask extends Activity implements DatePickerDialog.OnDateSetListe
 		System.out.println("collaborators " + collaborators);
 		if(!isOKCollab(collaborators)){
 			new AlertDialog.Builder(NewTask.this)
-			.setMessage("Your collaborator list need to be comma separated with alphanumeric")
+			.setMessage(getString(R.string.invalidCollabFormat))
 			.setNeutralButton("OK", null).show();
 			return;
 		}
@@ -94,7 +94,8 @@ public class NewTask extends Activity implements DatePickerDialog.OnDateSetListe
 		}
 		String[] collabList = collaborators.split(",");
 		for (int i = 0; i < collabList.length; i++) {
-			if(!isAlphanumeric(collabList[i])){
+			String collaborator = (collabList[i]).trim();
+			if(!isAlphanumeric(collaborator)){
 				return false;
 			}
 		}
@@ -210,8 +211,7 @@ public class NewTask extends Activity implements DatePickerDialog.OnDateSetListe
 			else{
 				System.err.println("Show warning dialog");
 				new AlertDialog.Builder(NewTask.this)
-				.setMessage("It was not possible to save your task, maybe you miss fields or the internet" +
-						"connection is corrupt. Please try again")
+				.setMessage(getString(R.string.no_db_conn))
 				.setNeutralButton("OK", null).show();
 			}
 			

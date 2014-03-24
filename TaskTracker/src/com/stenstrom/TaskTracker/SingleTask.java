@@ -1,5 +1,6 @@
 package com.stenstrom.TaskTracker;
 
+import android.R.bool;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -20,6 +21,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 public class SingleTask extends Activity {
     HashMap<String, String> contactMap;
@@ -107,8 +109,6 @@ public class SingleTask extends Activity {
         SetWithDB dbConn = new SetWithDB(Constants.updatePomodoro,
                 contactMap.get(Constants.TASK_ID_DB), Integer.toString(userID));
         dbConn.execute();
-        Intent intent = new Intent(SingleTask.this, ListTasks.class);
-        startActivity(intent);
 
     }
 
@@ -116,8 +116,7 @@ public class SingleTask extends Activity {
         SetWithDB dbConn = new SetWithDB(Constants.setDone, contactMap.get(Constants.TASK_ID_DB),
                 Integer.toString(userID));
         dbConn.execute();
-        Intent intent = new Intent(SingleTask.this, ListTasks.class);
-        startActivity(intent);
+        
 
     }
 
@@ -196,18 +195,7 @@ public class SingleTask extends Activity {
             this.userID = userID;
         }
 
-        private ProgressDialog pDialog;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            // Showing progress dialog
-            pDialog = new ProgressDialog(SingleTask.this);
-            pDialog.setMessage("Please wait...");
-            pDialog.setCancelable(false);
-            pDialog.show();
-
-        }
+       
 
         @Override
         protected Boolean doInBackground(Void... params) {
@@ -234,29 +222,28 @@ public class SingleTask extends Activity {
         }
 
         protected void onPostExecute(Boolean result) {
-            if (pDialog.isShowing())
-                pDialog.dismiss();
+
             if (!method.equals(Constants.getCollab)) {
                 if (result) {
-                    new AlertDialog.Builder(SingleTask.this).setMessage("It has now been updated")
+                    new AlertDialog.Builder(SingleTask.this).setMessage(getString(R.string.update_worked))
                             .setNeutralButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-
+                                	Intent intent = new Intent(SingleTask.this, ListTasks.class);
+                                    startActivity(intent);
                                 }
                             }).show();
                 } else {
                     System.err.println("Show warning dialog");
                     new AlertDialog.Builder(SingleTask.this)
-                            .setMessage("Error in connection with database, please try again")
+                            .setMessage(getString(R.string.no_db_conn))
                             .setNeutralButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-
+                                	
                                 }
                             }).show();
                 }
             }
         }
-
     }
 
 
