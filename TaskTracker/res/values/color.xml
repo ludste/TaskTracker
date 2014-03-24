@@ -6,6 +6,7 @@
    <color name="header2">#808080</color>
    <color name="header3">#000000</color>
    <color name="text">#000000</color>
+   <color name="onKeyDown">#008000</color>
    <color name="background">#FBFBFB</color>
    <color name="button_background">#B80000</color>
 	 <color name="task_background">#FBFBFB</color>
