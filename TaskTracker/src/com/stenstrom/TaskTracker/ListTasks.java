@@ -34,7 +34,7 @@ public class ListTasks extends ListActivity {
         super.onCreate(savedInstanceState);
         userID = getSharedPreferences(getString(R.string.preference_key_file), 0).getInt(Constants.USER_ID, -1);
         if (userID == -1) {
-            Intent signin = new Intent(this, MyActivity.class);
+            Intent signin = new Intent(this, UserValidation.class);
             startActivity(signin);
         }
         setContentView(R.layout.list_tasks);
@@ -86,7 +86,7 @@ public class ListTasks extends ListActivity {
         Editor edit = getSharedPreferences(getString(R.string.preference_key_file), 0).edit();
         edit.clear();
         edit.apply();
-        Intent intent = new Intent(this, MyActivity.class);
+        Intent intent = new Intent(this, UserValidation.class);
         startActivity(intent);
     }
 

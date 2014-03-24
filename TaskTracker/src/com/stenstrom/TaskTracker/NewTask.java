@@ -1,6 +1,5 @@
 package com.stenstrom.TaskTracker;
 
-import android.app.*;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -174,19 +173,19 @@ public class NewTask extends Activity implements DatePickerDialog.OnDateSetListe
             String jsonStr = serviceHandler
                     .makeServiceCall(Constants.SERVER_ADDRESS, ServiceHandler.GET, nameValuePairs);
             System.err.println("Jsonstr: " + jsonStr);
-            if (method.equals(Constants.getAlUsers)){
+            if (method.equals(Constants.getAlUsers)) {
                 try {
                     JSONObject data = new JSONObject(jsonStr);
-                String users = data.getString(Constants.DATA);
+                    String users = data.getString(Constants.DATA);
                     System.out.println(users);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
 
-                if (jsonStr.contains("true")){
+            if (jsonStr.contains("true")) {
                 return true;
-                }
+            }
             //PRoblem, den vill inte konvertera till JSON objekt trots att jag g�r EXAKT som i allTasks
 //			try {
 //				JSONObject allResultJson = new JSONObject(jsonStr);
@@ -216,8 +215,7 @@ public class NewTask extends Activity implements DatePickerDialog.OnDateSetListe
             } else {
                 System.err.println("Show warning dialog");
                 new AlertDialog.Builder(NewTask.this)
-                        .setMessage("It was not possible to save your task, maybe you miss fields or the internet" +
-                                "connection is corrupt. Please try again")
+                        .setMessage(getString(R.string.no_db_conn))
                         .setNeutralButton("OK", null).show();
             }
 

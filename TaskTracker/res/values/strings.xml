@@ -32,8 +32,6 @@
     <string name="password_again">Password(Repeat)</string>
     <string name="email">Email</string>
     <string name="accept">accept</string>
-    <string name="invalidEmailFormat">Enter a valid email address</string>
-    <string name="invalidPasswordFormat">The passwords are not the same</string>
     <string name="time_pomodoro">25:00</string>
     <string name="pomodoro_timer_B_long">Long break</string>
     <string name="pomodoro_timer_B_short">Short break</string>
@@ -42,7 +40,15 @@
     <string name="time_long_break">10 : 00</string>
     <string name="time_short_break">5 : 00</string>
     <string name="sttop_timer">Stop</string>
+    
     <string name="shortPassword">Password must be at least 3 characters</string>
+     <string name="invalidEmailFormat">Enter a valid email address</string>
+    <string name="invalidPasswordFormat">The passwords are not the same</string>
+    <string name="no_db_conn">It was not possible to save your task, maybe you miss fields or the internet" +
+						"connection is corrupt. Please try again</string>
+	 <string name="update_worked">It has now been updated</string>		
+	 <string name="invalidCollabFormat">Your collaborator list need to be comma separated with alphanumeric</string>
+	 <string name="wait">Please wait</string>		
 
 
 </resources>
