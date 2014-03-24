@@ -26,7 +26,6 @@ public class CustomAdapter extends ArrayAdapter<HashMap<String, String>> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         try {
             HashMap<String, String> task = objects.get(position);
             String isCompleted = task.get(Constants.IS_COMPLETED);

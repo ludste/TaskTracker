@@ -44,10 +44,11 @@
 
     <string name="shortPassword">Password must be at least 3 characters</string>
     <string name="invalidEmailFormat">Enter a valid email address</string>
+    <string name="invalidTaskname">Enter a task name</string>
+    <string name="invalidPomodoros">Pomodoros must be more than 0</string>
     <string name="passwords_missmatch">The passwords are not the same</string>
-    <string name="no_db_conn">It was not possible to save your task, maybe you miss fields or the internet" +
-        "connection is corrupt. Please try again
-    </string>
+    <string name="no_db_conn">Cannot save task. Fields missing, collaborator does not 
+        exist or the internet connection is corrupt. Please try again</string>
     <string name="update_worked">It has now been updated</string>
     <string name="invalidCollabFormat">Your collaborator list need to be comma separated with alphanumeric</string>
     <string name="wait">Please wait</string>

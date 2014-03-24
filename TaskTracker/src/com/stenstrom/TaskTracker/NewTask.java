@@ -55,13 +55,25 @@ public class NewTask extends Activity implements DatePickerDialog.OnDateSetListe
      * Called when button "Send" is clicked.
      */
     public void sendToBackend(View view) {
-
+    	
         EditText editName = (EditText) findViewById(R.id.new_task_ET_name);
         EditText editPomodoros = (EditText) findViewById(R.id.new_task_ET_pomodoros);
         String taskName = editName.getText().toString();
         String pomodoros = editPomodoros.getText().toString();
         String collaborators = ((EditText) findViewById(R.id.new_task_ET_choose_collab)).getText().toString();//Comma separated list
-
+        
+        if (taskName.isEmpty()) {
+            new AlertDialog.Builder(NewTask.this)
+                    .setMessage(getString(R.string.invalidTaskname))
+                    .setNeutralButton("OK", null).show();
+            return;
+        }
+        if (pomodoros.isEmpty() || Integer.parseInt(pomodoros)< 1) {
+            new AlertDialog.Builder(NewTask.this)
+                    .setMessage(getString(R.string.invalidPomodoros))
+                    .setNeutralButton("OK", null).show();
+            return;
+        }
         if (!isOKCollab(collaborators)) {
             new AlertDialog.Builder(NewTask.this)
                     .setMessage(R.string.need_comma_separation)
