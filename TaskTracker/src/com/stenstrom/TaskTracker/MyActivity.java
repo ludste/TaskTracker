@@ -79,6 +79,9 @@ public class MyActivity extends Activity {
         setContentView(R.layout.sign_up);
 
     }
+    public void toSignIn(View view){
+    	setContentView(R.layout.sign_in);
+    }
 
     public void signUp(View view) {
         EditText editUsername = (EditText) findViewById(R.id.sign_up_ET_username);

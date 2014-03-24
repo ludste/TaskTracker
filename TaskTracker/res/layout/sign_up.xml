@@ -75,7 +75,15 @@
             android:inputType="textEmailAddress"
             android:textColor="@color/header2"
             android:textSize="20sp" />
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal" >
+                <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
         <Button
             android:id="@+id/sign_up_B_sign_up"
             android:layout_width="fill_parent"
@@ -84,5 +92,19 @@
             android:onClick="signUp"
             android:text="@string/sign_up"
             android:textColor="@color/button_color" />
-
+        </RelativeLayout>
+                <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+         <Button
+            android:id="@+id/sign_up_B_back"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/button_background"
+            android:onClick="toSignIn"
+            android:text="@string/sign_in"
+            android:textColor="@color/button_color" />
+         </RelativeLayout>
+</LinearLayout>
 </LinearLayout>
