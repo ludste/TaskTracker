@@ -17,6 +17,7 @@ public class Constants {
     public static final String METHOD = "method";
     public static final String STATUS = "status";
     public static final String DATA = "data";
+    public static final String SERVER_ADDRESS = "http://ludste.synology.me/TaskTracker/index.php";
 
 
     public static final String USER_ID = "user_id";

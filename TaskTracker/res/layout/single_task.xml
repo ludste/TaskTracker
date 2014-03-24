@@ -226,6 +226,21 @@
                 android:visibility="gone"
                 android:contentDescription="@string/shared"/>
 
+        <ImageView
+                android:id="@+id/single_task_IV_task_done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/accept"
+                android:visibility="gone"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                android:contentDescription="@string/accept"
+                android:paddingBottom="15dp"
+                android:paddingLeft="35dp"
+                android:layout_toRightOf="@+id/pomodoros_comp_me"
+                android:layout_above="@+id/separator2"
+                />
+
     </RelativeLayout>
 
 

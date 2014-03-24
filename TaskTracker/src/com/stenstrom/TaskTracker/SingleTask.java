@@ -44,6 +44,8 @@ public class SingleTask extends Activity {
             String completedPom;
             String isCollab;
             String completedByMe;
+            String isCompleted;
+
             Bundle extras = getIntent().getExtras();
             if (extras != null) {
                 contactMap = (HashMap<String, String>) extras.get(Constants.CONTACT_MAP);
@@ -53,6 +55,8 @@ public class SingleTask extends Activity {
                 completedPom = contactMap.get(Constants.NUM_COMPLETED_POMODOROS);
                 isCollab = contactMap.get(Constants.IS_COLLABORATIVE);
                 completedByMe = contactMap.get(Constants.OWN_POMODOROS);
+                isCompleted = contactMap.get(Constants.IS_COMPLETED);
+
 
                 TextView nameView = (TextView) findViewById(R.id.task_name_s);
                 TextView endView = (TextView) findViewById(R.id.end_s);
@@ -68,8 +72,8 @@ public class SingleTask extends Activity {
                 completedView.setText(completedPom);
                 completedByMeView.setText(completedByMe);
                 if (isCollab.equals("1")) {
-                    ImageView i = (ImageView) findViewById(R.id.collab_image);
-                    i.setVisibility(View.VISIBLE);
+                    ImageView imageView = (ImageView) findViewById(R.id.collab_image);
+                    imageView.setVisibility(View.VISIBLE);
 
                     String taskID = contactMap.get(Constants.TASK_ID_DB);
                     SetWithDB dbConn = new SetWithDB(Constants.getCollab, taskID, null);
@@ -83,6 +87,11 @@ public class SingleTask extends Activity {
 //					LinearLayout singleView = (LinearLayout) findViewById(R.id.single_task);
 //					singleView.addView(t);
 
+                }
+                if (isCompleted.equals("1")) {
+                    System.out.println("here");
+                    ImageView imageView = (ImageView) findViewById(R.id.single_task_IV_task_done);
+                    imageView.setVisibility(View.VISIBLE);
                 }
 
 
@@ -122,13 +131,13 @@ public class SingleTask extends Activity {
     }
 
     public void startPomodoro(View view) {
-        long time = 1000 * 60 * 25;
+        long time = 1000 * 25;
         toggleButtonsClickable(false);
         timerHandler(time, Constants.TIME_POMODORO);
     }
 
     public void startLongBreak(View view) {
-        long time = 1000 * 60 * 10;
+        long time = 1000 * 10;
         toggleButtonsClickable(false);
         timerHandler(time, Constants.TIME_LONG);
     }
@@ -136,13 +145,13 @@ public class SingleTask extends Activity {
 
     public void startShortBreak(View view) {
 
-        long time = 1000 * 60 * 5;
+        long time = 1000 * 5;
         toggleButtonsClickable(false);
         timerHandler(time, Constants.TIME_SHORT);
     }
 
     public void timerHandler(long time, final String type) {
-        final MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.blackberry_gentle);
+        final MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.blackberry_gentle);
         final long millisGoal = System.currentTimeMillis() + time;
         final TextView timer = (TextView) findViewById(R.id.single_task_TV_pomodoro_clock);
         timerRunnable = new Runnable() {
@@ -150,12 +159,12 @@ public class SingleTask extends Activity {
             @Override
             public void run() {
                 long millis = millisGoal - System.currentTimeMillis();
-                if (millis <= 5000 && !mp.isPlaying()) {
-                    mp.start();
+                if (millis <= 5000 && !mediaPlayer.isPlaying()) {
+                    mediaPlayer.start();
                 }
                 if (millis <= 0) {
+                    mediaPlayer.stop();
                     if (type.equals(Constants.TIME_POMODORO)) {
-                        mp.stop();
                         registerPomodoro(null);
                     }
                     return;
