@@ -27,9 +27,11 @@ public class CustomAdapter extends ArrayAdapter<HashMap<String, String>>{
 	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		
 		try{
 		HashMap<String, String> task = objects.get(position);
 		String isCompleted = task.get(Constants.IS_COMPLETED);
+//		System.out.println("now processing " + position + " with iscomp " + isCompleted);
 		 if (convertView == null) {
 	          convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, null);
 	     }
@@ -56,7 +58,7 @@ public class CustomAdapter extends ArrayAdapter<HashMap<String, String>>{
 			 iconDone.setVisibility(View.VISIBLE);
 			 PomView.setVisibility(View.GONE);
 			 taskNameView.setTextColor(convertView.getResources().getColor(R.color.header1_done));
-			 convertView.setBackgroundColor(convertView.getResources().getColor(R.color.task_background_done));
+			 convertView.setBackground(convertView.getResources().getDrawable(R.drawable.task_item_background_done));
 			 endDateView.setText(task.get(Constants.COMPLETED_WHOLE_TASK_DATE));
 			 ((TextView) convertView.findViewById(R.id.end_text)).setText(R.string.done_date);
 		 }

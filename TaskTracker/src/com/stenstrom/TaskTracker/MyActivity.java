@@ -83,9 +83,17 @@ public class MyActivity extends Activity {
     public void signUp(View view) {
         EditText editUsername = (EditText) findViewById(R.id.sign_up_ET_username);
         EditText editPass = (EditText) findViewById(R.id.sign_up_ET_password);
+        EditText editPass2 = (EditText) findViewById(R.id.sign_up_ET_password_again);
         EditText editEmail = (EditText) findViewById(R.id.sign_up_ET_email);
         String username = editUsername.getText().toString();
         String password = editPass.getText().toString();
+        String password2 = editPass2.getText().toString();
+        if(!checkPassworEqual(password, password2)){
+        	new AlertDialog.Builder(MyActivity.this)
+			.setMessage(getString(R.string.invalidPasswordFormat))
+			.setNeutralButton("OK", null).show();
+            System.err.println("did not work");
+        }
         String email = editEmail.getText().toString();
         if (!checkValidEmailFormat(email)) {
             editEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.delete, 0);
@@ -151,7 +159,9 @@ public class MyActivity extends Activity {
         String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         return email.matches(EMAIL_REGEX);
     }
-
+    private boolean checkPassworEqual(String pass1, String pass2){
+    	return pass1.equals(pass2);
+    }
     private boolean checkUniqueUser(String username) {
         SignUpIn signup = new SignUpIn(username, null, null, Constants.checkUserUniqueness);
         try {

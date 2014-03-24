@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import org.apache.http.NameValuePair;
@@ -40,12 +41,26 @@ public class ListTasks extends ListActivity {
         allTasks = new ArrayList<HashMap<String, String>>();
 
         listView = getListView();
+        listView.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                System.out.println(arg1.getClass());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+//        v.setBackgroundColor(v.getResources().getColor(R.color.onKeyDown));
         listView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                System.out.println("the id is " + id);
+//				view.setBackgroundColor(view.getResources().getColor(R.color.onKeyDown));
                 try {
                     Intent in = new Intent(ListTasks.this, SingleTask.class);
                     in.putExtra(Constants.CONTACT_MAP, allTasks.get((int) id));

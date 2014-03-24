@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="@color/background"
         android:textColor="@color/text"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:hint="@string/task_name" />
     <View
         android:id="@+id/separator"
@@ -25,7 +25,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:background="@color/background"
         android:textColor="@color/text"
         android:hint="@string/task_pomodoros" />
@@ -38,7 +38,7 @@
     <EditText
         android:id="@+id/choose_collab"
         android:layout_width="fill_parent"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:layout_height="wrap_content"
         android:background="@color/background"
         android:textColor="@color/text"
@@ -54,7 +54,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@color/background"
-         android:textSize="30sp"
+         android:textSize="20sp"
         android:textColor="@color/header2"
          android:gravity="left|center_vertical"
         android:text="@string/change_date" />

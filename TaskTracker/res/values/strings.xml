@@ -29,9 +29,11 @@
     <string name="signup_error">Error: Your username or email already exist, pleas specify another:</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="password_again">Password(Repeat)</string>
     <string name="email">Email</string>
     <string name="accept">accept</string>
     <string name="invalidEmailFormat">Enter a valid email address</string>
+    <string name="invalidPasswordFormat">The passwords are not the same</string>
     <string name="time_pomodoro">25:00</string>
     <string name="pomodoro_timer_B_long">Long break</string>
     <string name="pomodoro_timer_B_short">Short break</string>
