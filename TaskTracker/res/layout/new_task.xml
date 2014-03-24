@@ -1,76 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/background"
-    android:padding="20dp" >
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="@color/background"
+              android:padding="20dp">
 
     <EditText
-        android:id="@+id/name_edit"
-        android:layout_width="188dp"
-        android:layout_height="wrap_content"
-        android:background="@color/background"
-        android:textColor="@color/text"
-        android:textSize="20sp"
-        android:hint="@string/task_name" />
+            android:id="@+id/new_task_ET_name"
+            android:layout_width="188dp"
+            android:layout_height="35sp"
+            android:background="@color/background"
+            android:textColor="@color/text"
+            android:textSize="20sp"
+            android:hint="@string/task_name"/>
     <View
-        android:id="@+id/separator"
-        android:layout_width="fill_parent"
-        android:layout_height="0.2dp"
-        android:background="@color/gray"
-        android:visibility="visible" />
+            android:id="@+id/new_task_LINE_1"
+            android:layout_width="fill_parent"
+            android:layout_height="0.2dp"
+            android:background="@color/gray"
+            android:visibility="visible"/>
     <EditText
-        android:id="@+id/pomodoro_edit"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:textSize="20sp"
-        android:background="@color/background"
-        android:textColor="@color/text"
-        android:hint="@string/task_pomodoros" />
+            android:id="@+id/new_task_ET_pomodoros"
+            android:layout_width="fill_parent"
+            android:layout_height="35sp"
+            android:inputType="number"
+            android:textSize="20sp"
+            android:background="@color/background"
+            android:textColor="@color/text"
+            android:hint="@string/task_pomodoros"/>
     <View
-        android:id="@+id/separator"
-        android:layout_width="fill_parent"
-        android:layout_height="0.2dp"
-        android:background="@color/gray"
-        android:visibility="visible" />
+            android:id="@+id/new_task_LINE_2"
+            android:layout_width="fill_parent"
+            android:layout_height="0.2dp"
+            android:background="@color/gray"
+            android:visibility="visible"/>
     <EditText
-        android:id="@+id/choose_collab"
-        android:layout_width="fill_parent"
-        android:textSize="20sp"
-        android:layout_height="wrap_content"
-        android:background="@color/background"
-        android:textColor="@color/text"
-        android:hint="@string/choose_collab" />
+            android:id="@+id/new_task_ET_choose_collab"
+            android:layout_width="fill_parent"
+            android:textSize="20sp"
+            android:layout_height="35sp"
+            android:background="@color/background"
+            android:textColor="@color/text"
+            android:hint="@string/choose_collab"/>
     <View
-        android:id="@+id/separator"
-        android:layout_width="fill_parent"
-        android:layout_height="0.2dp"
-        android:background="@color/gray"
-        android:visibility="visible" />
+            android:id="@+id/new_task_LINE_3"
+            android:layout_width="fill_parent"
+            android:layout_height="0.2dp"
+            android:background="@color/gray"
+            android:visibility="visible"/>
     <Button
-        android:id="@+id/button_change_date"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/background"
-         android:textSize="20sp"
-        android:textColor="@color/header2"
-         android:gravity="left|center_vertical"
-        android:text="@string/change_date" />
+            android:id="@+id/new_task_B_change_date"
+            android:layout_width="fill_parent"
+            android:layout_height="35sp"
+            android:background="@color/background"
+            android:textSize="20sp"
+            android:textColor="@color/header2"
+            android:gravity="left|center_vertical"
+            android:text="@string/change_date"/>
     <View
-        android:id="@+id/separator"
-        android:layout_width="fill_parent"
-        android:layout_height="0.2dp"
-        android:background="@color/gray"
-        android:visibility="visible" />
+            android:id="@+id/new_task_LINE_4"
+            android:layout_width="fill_parent"
+            android:layout_height="0.2dp"
+            android:layout_marginBottom="2dp"
+            android:background="@color/gray"
+            android:visibility="visible"/>
     <Button
-        android:id="@+id/button_send"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/button_background"
-        android:textColor="@color/button_color"
-        android:onClick="sendToBackend"
-        android:text="@string/button_text" />
+            android:id="@+id/new_task_B_send"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/button_background"
+            android:textColor="@color/button_color"
+            android:onClick="sendToBackend"
+            android:text="@string/button_text"/>
 
 </LinearLayout>

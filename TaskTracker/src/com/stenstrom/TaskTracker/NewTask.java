@@ -1,5 +1,6 @@
 package com.stenstrom.TaskTracker;
 
+import android.app.*;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -11,8 +12,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,15 +23,11 @@ public class NewTask extends Activity implements DatePickerDialog.OnDateSetListe
     int yearSelected;
     int monthSelected;
     int daySelected;
-    ArrayList<String> allUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        allUsers = new ArrayList<String>();
         userID = getSharedPreferences(getString(R.string.preference_key_file), 0).getInt(Constants.USER_ID, -1);
-        AddTask getUsers = new AddTask(0, null, null, 0, null, null, Constants.getAlUsers);
-        getUsers.execute();
         setContentView(R.layout.new_task);
 
         // If not selected, year, month and day will be today's date
@@ -40,7 +35,7 @@ public class NewTask extends Activity implements DatePickerDialog.OnDateSetListe
         monthSelected = c.get(Calendar.MONTH);
         daySelected = c.get(Calendar.DAY_OF_MONTH);
 
-        buttonChangeDate = (Button) findViewById(R.id.button_change_date);
+        buttonChangeDate = (Button) findViewById(R.id.new_task_B_change_date);
         buttonChangeDate.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +46,7 @@ public class NewTask extends Activity implements DatePickerDialog.OnDateSetListe
 
     }
 
-    private void showDateDialog(View v) {
+    public void showDateDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getFragmentManager(), "datePicker");
     }
@@ -61,23 +56,20 @@ public class NewTask extends Activity implements DatePickerDialog.OnDateSetListe
      */
     public void sendToBackend(View view) {
 
-        EditText editName = (EditText) findViewById(R.id.name_edit);
-        EditText editPomodoros = (EditText) findViewById(R.id.pomodoro_edit);
+        EditText editName = (EditText) findViewById(R.id.new_task_ET_name);
+        EditText editPomodoros = (EditText) findViewById(R.id.new_task_ET_pomodoros);
         String taskName = editName.getText().toString();
         String pomodoros = editPomodoros.getText().toString();
-        String collaborators = ((EditText) findViewById(R.id.choose_collab)).getText().toString();//Comma separated list
+        String collaborators = ((EditText) findViewById(R.id.new_task_ET_choose_collab)).getText().toString();//Comma separated list
 
-        System.out.println("collaborators " + collaborators);
         if (!isOKCollab(collaborators)) {
             new AlertDialog.Builder(NewTask.this)
-                    .setMessage("Your collaborator list need to be comma separated with alphanumeric")
+                    .setMessage(R.string.need_comma_separation)
                     .setNeutralButton("OK", null).show();
             return;
         }
         int isCollaborative = (collaborators.equals("") ? 0 : 1);
         String date = yearSelected + "-" + (monthSelected + 1) + "-" + daySelected;
-        System.out.println("Button was clicked, with text " + taskName + " and pomodoros "
-                + pomodoros + " at date " + date);
         AddTask newTask = new AddTask(userID, pomodoros, taskName, isCollaborative, date, collaborators, Constants.add);
         newTask.execute();
     }
@@ -87,8 +79,8 @@ public class NewTask extends Activity implements DatePickerDialog.OnDateSetListe
             return true;
         }
         String[] collabList = collaborators.split(",");
-        for (int i = 0; i < collabList.length; i++) {
-            if (!isAlphanumeric(collabList[i])) {
+        for (String collaborator : collabList) {
+            if (!isAlphanumeric(collaborator)) {
                 return false;
             }
         }
@@ -172,35 +164,7 @@ public class NewTask extends Activity implements DatePickerDialog.OnDateSetListe
             }
             String jsonStr = serviceHandler
                     .makeServiceCall(Constants.SERVER_ADDRESS, ServiceHandler.GET, nameValuePairs);
-            System.err.println("Jsonstr: " + jsonStr);
-            if (method.equals(Constants.getAlUsers)) {
-                try {
-                    JSONObject data = new JSONObject(jsonStr);
-                    String users = data.getString(Constants.DATA);
-                    System.out.println(users);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (jsonStr.contains("true")) {
-                return true;
-            }
-            //PRoblem, den vill inte konvertera till JSON objekt trots att jag g�r EXAKT som i allTasks
-//			try {
-//				JSONObject allResultJson = new JSONObject(jsonStr);
-//				String statusCode = allResultJson.getString("status");
-//				String data = allResultJson.getString("data");
-//				if (statusCode.equals(Constants.add) && data.equals("true")) {
-//					return true;
-//				}
-//			}
-//			catch (Exception e) {
-//				Log.e("log_tag", "Error Parsing Data " + e.toString());
-//				e.printStackTrace();
-//			}
-
-            return false;//Might want more exhaustive error messages?
+            return jsonStr.contains("true");
 
         }
 
@@ -209,11 +173,10 @@ public class NewTask extends Activity implements DatePickerDialog.OnDateSetListe
             if (pDialog.isShowing())
                 pDialog.dismiss();
             if (isSuccessful) {
-                System.err.println("Now go to listtasks");
                 Intent intent = new Intent(NewTask.this, ListTasks.class);
                 startActivity(intent);
+                finish();
             } else {
-                System.err.println("Show warning dialog");
                 new AlertDialog.Builder(NewTask.this)
                         .setMessage(getString(R.string.no_db_conn))
                         .setNeutralButton("OK", null).show();

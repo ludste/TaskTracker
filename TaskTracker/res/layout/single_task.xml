@@ -190,7 +190,7 @@
         <View
                 android:layout_width="fill_parent"
                 android:layout_height="0.2dp"
-                android:id="@+id/separator2"
+                android:id="@+id/sign_up_LINE_1"
                 android:visibility="visible"
                 android:layout_below="@+id/pomodoros_s"
                 android:background="@android:color/black"/>
@@ -238,7 +238,7 @@
                 android:paddingBottom="15dp"
                 android:paddingLeft="35dp"
                 android:layout_toRightOf="@+id/pomodoros_comp_me"
-                android:layout_above="@+id/separator2"
+                android:layout_above="@+id/sign_up_LINE_1"
                 />
 
     </RelativeLayout>

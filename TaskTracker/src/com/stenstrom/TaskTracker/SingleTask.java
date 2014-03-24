@@ -1,9 +1,7 @@
 package com.stenstrom.TaskTracker;
 
-import android.R.bool;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -21,7 +19,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.ExecutionException;
 
 public class SingleTask extends Activity {
     HashMap<String, String> contactMap;
@@ -37,7 +34,6 @@ public class SingleTask extends Activity {
         userID = getSharedPreferences(getString(R.string.preference_key_file), 0).getInt(
                 Constants.USER_ID, -1);
         try {
-
             setContentView(R.layout.single_task);
 
             String taskName;
@@ -48,6 +44,7 @@ public class SingleTask extends Activity {
             String completedByMe;
             String isCompleted;
 
+            //Extract all data about the task we came from
             Bundle extras = getIntent().getExtras();
             if (extras != null) {
                 contactMap = (HashMap<String, String>) extras.get(Constants.CONTACT_MAP);
@@ -59,20 +56,20 @@ public class SingleTask extends Activity {
                 completedByMe = contactMap.get(Constants.OWN_POMODOROS);
                 isCompleted = contactMap.get(Constants.IS_COMPLETED);
 
-
+                //Get all view from the layout
                 TextView nameView = (TextView) findViewById(R.id.task_name_s);
                 TextView endView = (TextView) findViewById(R.id.end_s);
                 TextView pomView = (TextView) findViewById(R.id.pomodoros_s);
                 TextView completedView = (TextView) findViewById(R.id.pomodoros_comp_tot);
                 TextView completedByMeView = (TextView) findViewById(R.id.pomodoros_comp_me);
-                // TextView collabView =
-                // (TextView)findViewById(R.id.collaborate);
 
+                //Fill in info
                 nameView.setText(taskName);
                 endView.setText(endTime);
                 pomView.setText(pomodoros);
                 completedView.setText(completedPom);
                 completedByMeView.setText(completedByMe);
+
                 if (isCollab.equals("1")) {
                     ImageView imageView = (ImageView) findViewById(R.id.collab_image);
                     imageView.setVisibility(View.VISIBLE);
@@ -80,18 +77,14 @@ public class SingleTask extends Activity {
                     String taskID = contactMap.get(Constants.TASK_ID_DB);
                     SetWithDB dbConn = new SetWithDB(Constants.getCollab, taskID, null);
                     dbConn.execute().get();
-                    ((TextView) findViewById(R.id.single_task_TV_shared_text)).setVisibility(View.VISIBLE);
+                    findViewById(R.id.single_task_TV_shared_text).setVisibility(View.VISIBLE);
                     TextView collab = (TextView) findViewById(R.id.single_task_TV_shared);
                     collab.setText(collaborators);
                     collab.setVisibility(View.VISIBLE);
-//					TextView t = new TextView(this);
-//					t.setText("these are the collaborators: " + collaborators);
-//					LinearLayout singleView = (LinearLayout) findViewById(R.id.single_task);
-//					singleView.addView(t);
 
                 }
+
                 if (isCompleted.equals("1")) {
-                    System.out.println("here");
                     ImageView imageView = (ImageView) findViewById(R.id.single_task_IV_task_done);
                     imageView.setVisibility(View.VISIBLE);
                 }
@@ -116,7 +109,6 @@ public class SingleTask extends Activity {
         SetWithDB dbConn = new SetWithDB(Constants.setDone, contactMap.get(Constants.TASK_ID_DB),
                 Integer.toString(userID));
         dbConn.execute();
-        
 
     }
 
@@ -124,9 +116,6 @@ public class SingleTask extends Activity {
         SetWithDB dbConn = new SetWithDB(Constants.remove, contactMap.get(Constants.TASK_ID_DB),
                 Integer.toString(userID));
         dbConn.execute();
-        Intent intent = new Intent(SingleTask.this, ListTasks.class);
-        startActivity(intent);
-
     }
 
     public void startPomodoro(View view) {
@@ -194,7 +183,6 @@ public class SingleTask extends Activity {
             this.userID = userID;
         }
 
-       
 
         @Override
         protected Boolean doInBackground(Void... params) {
@@ -227,8 +215,9 @@ public class SingleTask extends Activity {
                     new AlertDialog.Builder(SingleTask.this).setMessage(getString(R.string.update_worked))
                             .setNeutralButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                	Intent intent = new Intent(SingleTask.this, ListTasks.class);
+                                    Intent intent = new Intent(SingleTask.this, ListTasks.class);
                                     startActivity(intent);
+                                    finish();
                                 }
                             }).show();
                 } else {
@@ -237,7 +226,7 @@ public class SingleTask extends Activity {
                             .setMessage(getString(R.string.no_db_conn))
                             .setNeutralButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                	
+
                                 }
                             }).show();
                 }

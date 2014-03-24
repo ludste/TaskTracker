@@ -12,12 +12,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -41,26 +41,10 @@ public class ListTasks extends ListActivity {
         allTasks = new ArrayList<HashMap<String, String>>();
 
         listView = getListView();
-        listView.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                System.out.println(arg1.getClass());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                // TODO Auto-generated method stub
-
-            }
-        });
-//        v.setBackgroundColor(v.getResources().getColor(R.color.onKeyDown));
         listView.setOnItemClickListener(new OnItemClickListener() {
-
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-//				view.setBackgroundColor(view.getResources().getColor(R.color.onKeyDown));
                 try {
                     Intent in = new Intent(ListTasks.this, SingleTask.class);
                     in.putExtra(Constants.CONTACT_MAP, allTasks.get((int) id));
@@ -76,9 +60,17 @@ public class ListTasks extends ListActivity {
         //Now alltasks is populated
     }
 
-    public void sendMessage(View view) {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (adapter != null) {
+            sync(null);
+
+        }
+    }
+
+    public void newTask(View view) {
         Intent intent = new Intent(ListTasks.this, NewTask.class);
-        System.out.println("go to new ");
         startActivity(intent);
     }
 
@@ -88,6 +80,7 @@ public class ListTasks extends ListActivity {
         edit.apply();
         Intent intent = new Intent(this, UserValidation.class);
         startActivity(intent);
+        finish();
     }
 
     public void sync(View view) {
@@ -114,7 +107,6 @@ public class ListTasks extends ListActivity {
         @Override
         protected String doInBackground(Integer... arg0) {
             int userID = arg0[0];
-            System.out.println("Do in back");
             ServiceHandler serviceHandler = new ServiceHandler();
             ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
             nameValuePairs.add(new BasicNameValuePair(Constants.METHOD, Constants.getTasks));
@@ -127,33 +119,11 @@ public class ListTasks extends ListActivity {
                     JSONArray jArray = allResultJson.getJSONArray(Constants.DATA);
                     for (int i = 0; i < jArray.length(); i++) {
                         JSONObject json = jArray.getJSONObject(i);
-//					Task task;
-//					task = new Task(json.getString(Constants.TASK_ID_DB),
-//							json.getString(Constants.TASK_NAME),
-//							json.getString(Constants.START_TIME),
-//							json.getString(Constants.END_TIME),
-//							json.getString(Constants.COMPLETED_WHOLE_TASK),
-//							json.getString(Constants.NUM_OF_POMODOROS),
-//							json.getString(Constants.IS_COLLABORATIVE));
-                        HashMap<String, String> task = new HashMap<String, String>();
-                        task.put(Constants.TASK_NAME, json.getString(Constants.TASK_NAME));
-                        task.put(Constants.TASK_ID_DB, json.getString(Constants.TASK_ID_DB));
-                        task.put(Constants.USER_ID_DB, json.getString(Constants.USER_ID_DB));
-                        task.put(Constants.END_TIME, json.getString(Constants.END_TIME));
-                        task.put(Constants.NUM_OF_POMODOROS, json.getString(Constants.NUM_OF_POMODOROS));
-                        task.put(Constants.IS_COLLABORATIVE, json.getString(Constants.IS_COLLABORATIVE));
-                        task.put(Constants.NUM_COMPLETED_POMODOROS, json.getString(Constants.NUM_COMPLETED_POMODOROS));
-                        task.put(Constants.OWN_POMODOROS, json.getString(Constants.OWN_POMODOROS));
-                        task.put(Constants.COMPLETED_WHOLE_TASK_DATE, json.getString(Constants.COMPLETED_WHOLE_TASK_DATE));
-                        task.put(Constants.IS_COMPLETED, json.getString(Constants.IS_COMPLETED));
-
-                        allTasks.add(task);
+                        //Read all values from JSON response and put in HashMap
+                        allTasks.add(createTask(json));
                     }
-//				Collections.sort(allTasks, new SortTasks());
                 }
-                System.err.println("All tasks added");
             } catch (Exception e) {
-                // TODO: handle exception
                 Log.e("log_tag", "Error Parsing Data " + e.toString());
             }
             return jsonStr;
@@ -168,17 +138,9 @@ public class ListTasks extends ListActivity {
                 statusCode = allResultJson.getString(Constants.STATUS);
                 if (statusCode.equals(Constants.getTasks)) {
                     adapter = new CustomAdapter(ListTasks.this, allTasks);
-//			((CustomAdapter) adapter).sort(null);
-//					new SimpleAdapter(ListTasks.this, allTasks, 
-//					R.layout.list_item, 
-//					new String[]{
-//					Constants.TASK_NAME, Constants.END_TIME, Constants.NUM_OF_POMODOROS, Constants.IS_COMPLETED
-//			}, new int[]{
-//				R.id.task_name, R.id.end, R.id.pomodoros, R.id.is_completed	
-//			});
                     setListAdapter(adapter);
                 } else {
-                    new AlertDialog.Builder(ListTasks.this).setMessage("Could not load tasks")
+                    new AlertDialog.Builder(ListTasks.this).setMessage(R.string.failed_to_load_tasks)
                             .setNeutralButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
 
@@ -189,5 +151,20 @@ public class ListTasks extends ListActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    private HashMap<String, String> createTask(JSONObject json) throws JSONException {
+        HashMap<String, String> task = new HashMap<String, String>();
+        task.put(Constants.TASK_NAME, json.getString(Constants.TASK_NAME));
+        task.put(Constants.TASK_ID_DB, json.getString(Constants.TASK_ID_DB));
+        task.put(Constants.USER_ID_DB, json.getString(Constants.USER_ID_DB));
+        task.put(Constants.END_TIME, json.getString(Constants.END_TIME));
+        task.put(Constants.NUM_OF_POMODOROS, json.getString(Constants.NUM_OF_POMODOROS));
+        task.put(Constants.IS_COLLABORATIVE, json.getString(Constants.IS_COLLABORATIVE));
+        task.put(Constants.NUM_COMPLETED_POMODOROS, json.getString(Constants.NUM_COMPLETED_POMODOROS));
+        task.put(Constants.OWN_POMODOROS, json.getString(Constants.OWN_POMODOROS));
+        task.put(Constants.COMPLETED_WHOLE_TASK_DATE, json.getString(Constants.COMPLETED_WHOLE_TASK_DATE));
+        task.put(Constants.IS_COMPLETED, json.getString(Constants.IS_COMPLETED));
+        return task;
     }
 }

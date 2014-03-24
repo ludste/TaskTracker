@@ -1,110 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background"
-    android:orientation="vertical"
-    android:weightSum="1"
-    android:padding="20dp" >
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/background"
+              android:orientation="vertical"
+              android:weightSum="1"
+              android:padding="20dp">
 
-
-
-        <EditText
+    <EditText
             android:id="@+id/sign_up_ET_username"
             android:layout_width="320dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30sp"
             android:background="@color/background"
             android:hint="@string/username"
             android:textColor="@color/header2"
             android:textSize="20sp"
             android:maxLength="30">
 
-            <requestFocus />
-        </EditText>
-        <View
-                android:layout_width="fill_parent"
-                android:layout_height="0.2dp"
-                android:id="@+id/separator"
-                android:visibility="visible"
-                android:background="@color/gray"/>
+        <requestFocus/>
+    </EditText>
+    <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.2dp"
+            android:id="@+id/sign_in_LINE_1"
+            android:visibility="visible"
+            android:background="@color/gray"/>
 
-        <EditText
+    <EditText
             android:id="@+id/sign_up_ET_password"
             android:layout_width="320dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30sp"
             android:background="@color/background"
             android:hint="@string/password"
             android:inputType="textPassword"
             android:maxLength="30"
             android:textColor="@color/header2"
-            android:textSize="20sp" >
+            android:textSize="20sp">
 
-        </EditText>
-        <View
-                android:layout_width="fill_parent"
-                android:layout_height="0.2dp"
-                android:id="@+id/separator2"
-                android:visibility="visible"
-                android:background="@color/gray"/>
-                <EditText
+    </EditText>
+    <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.2dp"
+            android:id="@+id/sign_up_LINE_1"
+            android:visibility="visible"
+            android:background="@color/gray"/>
+    <EditText
             android:id="@+id/sign_up_ET_password_again"
             android:layout_width="320dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30sp"
             android:background="@color/background"
             android:hint="@string/password_again"
             android:inputType="textPassword"
             android:maxLength="30"
             android:textColor="@color/header2"
-            android:textSize="20sp" >
+            android:textSize="20sp">
 
-        </EditText>
-        <View
-                android:layout_width="fill_parent"
-                android:layout_height="0.2dp"
-                android:id="@+id/separator2"
-                android:visibility="visible"
-                android:background="@color/gray"/>
+    </EditText>
+    <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.2dp"
+            android:id="@+id/sign_up_LINE_2"
+            android:visibility="visible"
+            android:background="@color/gray"/>
 
-        <EditText
+    <EditText
             android:id="@+id/sign_up_ET_email"
             android:layout_width="320dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30sp"
             android:background="@color/background"
             android:hint="@string/email"
             android:maxLength="30"
             android:inputType="textEmailAddress"
             android:textColor="@color/header2"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:baselineAligned="false"
-        android:orientation="horizontal" >
-                <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1" >
-        <Button
-            android:id="@+id/sign_up_B_sign_up"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/button_background"
-            android:onClick="signUp"
-            android:text="@string/sign_up"
-            android:textColor="@color/button_color" />
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+        <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+            <Button
+                    android:id="@+id/sign_up_B_sign_up"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/button_background"
+                    android:onClick="signUp"
+                    android:text="@string/sign_up"
+                    android:textColor="@color/button_color"/>
         </RelativeLayout>
-                <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1" >
-         <Button
-            android:id="@+id/sign_up_B_back"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/button_background"
-            android:onClick="toSignIn"
-            android:text="@string/sign_in"
-            android:textColor="@color/button_color" />
-         </RelativeLayout>
-</LinearLayout>
+        <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+            <Button
+                    android:id="@+id/sign_up_B_back"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/button_background"
+                    android:onClick="toSignIn"
+                    android:text="@string/sign_in"
+                    android:textColor="@color/button_color"/>
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>
