@@ -2,7 +2,6 @@ package com.stenstrom.TaskTracker;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -10,7 +9,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
@@ -68,9 +66,9 @@ public class MyActivity extends Activity {
             Intent intent = new Intent(this, ListTasks.class);
             startActivity(intent);
         } else {
-        	new AlertDialog.Builder(MyActivity.this)
-			.setMessage("Username or password is wrong")
-			.setNeutralButton("OK", null).show();
+            new AlertDialog.Builder(MyActivity.this)
+                    .setMessage("Username or password is wrong")
+                    .setNeutralButton("OK", null).show();
             System.err.println("did not work");
         }
     }
@@ -79,8 +77,9 @@ public class MyActivity extends Activity {
         setContentView(R.layout.sign_up);
 
     }
-    public void toSignIn(View view){
-    	setContentView(R.layout.sign_in);
+
+    public void toSignIn(View view) {
+        setContentView(R.layout.sign_in);
     }
 
     public void signUp(View view) {
@@ -91,26 +90,27 @@ public class MyActivity extends Activity {
         String username = editUsername.getText().toString();
         String password = editPass.getText().toString();
         String password2 = editPass2.getText().toString();
-        if(!checkPassworEqual(password, password2)){
-        	new AlertDialog.Builder(MyActivity.this)
-			.setMessage(getString(R.string.invalidPasswordFormat))
-			.setNeutralButton("OK", null).show();
+        if (!checkPassworEqual(password, password2)) {
+            new AlertDialog.Builder(MyActivity.this)
+                    .setMessage(getString(R.string.invalidPasswordFormat))
+                    .setNeutralButton("OK", null).show();
             System.err.println("did not work");
+            return;
         }
         String email = editEmail.getText().toString();
         if (!checkValidEmailFormat(email)) {
             editEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.delete, 0);
             new AlertDialog.Builder(MyActivity.this)
-			.setMessage(getString(R.string.invalidEmailFormat))
-			.setNeutralButton("OK", null).show();
+                    .setMessage(getString(R.string.invalidEmailFormat))
+                    .setNeutralButton("OK", null).show();
             System.err.println("did not work");
             return;
         }
-        if (!(password.length() > 3)) {
+        if (!(password.length() >= 3)) {
             editPass.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.delete, 0);
             new AlertDialog.Builder(MyActivity.this)
-			.setMessage(getString(R.string.shortPassword))
-			.setNeutralButton("OK", null).show();
+                    .setMessage(getString(R.string.shortPassword))
+                    .setNeutralButton("OK", null).show();
             System.err.println("did not work");
             return;
         }
@@ -130,8 +130,8 @@ public class MyActivity extends Activity {
                 editEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.accept, 0);
             }
             new AlertDialog.Builder(MyActivity.this)
-			.setMessage(getString(R.string.signup_error))
-			.setNeutralButton("OK", null).show();
+                    .setMessage(getString(R.string.signup_error))
+                    .setNeutralButton("OK", null).show();
             System.err.println("did not work");
             return;
         }
@@ -162,9 +162,11 @@ public class MyActivity extends Activity {
         String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         return email.matches(EMAIL_REGEX);
     }
-    private boolean checkPassworEqual(String pass1, String pass2){
-    	return pass1.equals(pass2);
+
+    private boolean checkPassworEqual(String pass1, String pass2) {
+        return pass1.equals(pass2);
     }
+
     private boolean checkUniqueUser(String username) {
         SignUpIn signup = new SignUpIn(username, null, null, Constants.checkUserUniqueness);
         try {
@@ -204,7 +206,7 @@ public class MyActivity extends Activity {
             this.email = email;
             this.method = method;
         }
-        
+
 //    	private ProgressDialog pDialog;
 //        @Override
 //        protected void onPreExecute() {
@@ -246,8 +248,8 @@ public class MyActivity extends Activity {
         }
 
         protected Boolean onPostExecute(boolean worked) {
-        	super.onPostExecute(worked);
-        	System.out.println("On post execute");
+            super.onPostExecute(worked);
+            System.out.println("On post execute");
 //            pDialog.dismiss();
             return worked;
         }

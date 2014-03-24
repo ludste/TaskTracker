@@ -184,7 +184,6 @@ public class SingleTask extends Activity {
 
 
     private class SetWithDB extends AsyncTask<Void, Void, Boolean> {
-        String url = "http://ludste.synology.me/TaskTracker/index.php";
 
         String method;
         String taskID;
@@ -217,11 +216,11 @@ public class SingleTask extends Activity {
             nameValuePairs.add(new BasicNameValuePair(Constants.USER_ID_DB, userID));
             ServiceHandler serviceHandler = new ServiceHandler();
             String jsonStr = serviceHandler
-                    .makeServiceCall(url, ServiceHandler.GET, nameValuePairs);
+                    .makeServiceCall(Constants.SERVER_ADDRESS, ServiceHandler.GET, nameValuePairs);
             if (method.equals(Constants.getCollab)) {
                 try {
                     JSONObject all = new JSONObject(jsonStr);
-                    collaborators = all.getString("data");
+                    collaborators = all.getString(Constants.DATA);
 
                 } catch (Exception e) {
                     e.printStackTrace();

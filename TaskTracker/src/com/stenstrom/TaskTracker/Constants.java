@@ -13,6 +13,7 @@ public class Constants {
     public static String authenticate = "authenticateUser";
     public static String signUp = "addUser";
     public static String getCollab = "getCollaborators";
+    public static String getAlUsers = "getAllUsers";
 
     public static final String METHOD = "method";
     public static final String STATUS = "status";
